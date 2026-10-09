@@ -1,5 +1,4 @@
-extends CharacterBody2D
-signal player_dead 					# Signal to be emmited when player dies
+extends Area2D 
 
 # Array of the names of the different direction animations 
 const animations:Array = ["right", "up_right", "up", "up_left", 
@@ -14,6 +13,7 @@ var health:int = 100				# Player health
 func start(pos:Vector2): 
 	position = pos 
 	show() 
+	$CollisionShape2D.disabled = false 
 
 func _ready() -> void: 
 	screen_size = get_viewport_rect().size 
@@ -22,7 +22,7 @@ func _ready() -> void:
 func _process(delta: float) -> void: 
 	# Movement Controls 
 	# setting velocity vector 
-	velocity = Vector2.ZERO 
+	var velocity:Vector2 = Vector2.ZERO 
 	if Input.is_action_pressed("move_up"): 
 		velocity.y -= 1
 	if Input.is_action_pressed("move_down"): 
@@ -49,5 +49,3 @@ func _process(delta: float) -> void:
 	# check player bounds 
 	position += velocity * delta 
 	position = position.clamp(Vector2.ZERO, screen_size) 
-
-	

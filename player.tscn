@@ -72,14 +72,13 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1913570028]
-position = Vector2(408, 312)
+[node name="Player" type="Area2D" unique_id=1007525142]
 script = ExtResource("1_4flbx")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=498769465]
 sprite_frames = SubResource("SpriteFrames_4flbx")
-animation = &"up_right"
+animation = &"down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1897978928]
 shape = SubResource("CapsuleShape2D_onrkg")
