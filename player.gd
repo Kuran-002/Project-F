@@ -28,7 +28,10 @@ func start(pos:Vector2):
 
 # Keeps the player dodging for a certain amount of time 
 func _on_dodge_timer_timeout() -> void: 
+	if !is_dodging:
+		return
 	is_dodging = false 
+	velocity = Vector2.ZERO
 	$CollisionShape2D.disabled = false
 	$DodgeInterval.start() 
 
@@ -41,6 +44,12 @@ func _ready() -> void:
 	start(Vector2(400, 400)) # TODO: REMOVE THIS 
 
 func _process(delta: float) -> void: 
+	# Recover if the one-shot timer stopped without its timeout handler running.
+	if is_dodging and $DodgeTimer.is_stopped():
+		_on_dodge_timer_timeout()
+	if !can_dodge and !is_dodging and $DodgeInterval.is_stopped():
+		can_dodge = true
+
 	# setting velocity vector (only if not dodging)
 	if (!is_dodging): 
 		velocity = Vector2.ZERO 
@@ -62,14 +71,13 @@ func _process(delta: float) -> void:
 	else: 
 		$AnimatedSprite2D.stop() 
 
-	# Dodges for a certain amount of time if able to 
-	if Input.is_action_pressed("dodge"): 
-		if (can_dodge):
-			$DodgeTimer.start() 
-			is_dodging = true 
-			can_dodge = false 
-			$CollisionShape2D.disabled = true 
-			$AnimatedSprite2D.animation = "dodge_" + $AnimatedSprite2D.animation
+	# Start dodge once per key press so holding the key cannot chain dodges.
+	if Input.is_action_just_pressed("dodge") and can_dodge and !is_dodging:
+		$DodgeTimer.start() 
+		is_dodging = true 
+		can_dodge = false 
+		$CollisionShape2D.disabled = true 
+		$AnimatedSprite2D.animation = "dodge_" + $AnimatedSprite2D.animation
 	if(is_dodging): 
 		velocity *= DODGE_MULT 
 
