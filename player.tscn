@@ -13,10 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://bh2trjlmbp3gf" path="res://placeholders/down_left.svg" id="11_7lmhl"]
 [ext_resource type="Texture2D" uid="uid://bfbgqloqhjqa8" path="res://placeholders/down_right.svg" id="12_dx0e4"]
 [ext_resource type="Texture2D" uid="uid://cf6c4wsy6tah7" path="res://placeholders/left.svg" id="13_jm5j8"]
+[ext_resource type="Texture2D" uid="uid://ns37bbnt74o3" path="res://placeholders/idle.svg" id="13_pylmc"]
 [ext_resource type="Texture2D" uid="uid://thkupdjhor38" path="res://placeholders/right.svg" id="14_7hik5"]
 [ext_resource type="Texture2D" uid="uid://b6im3xmy734m0" path="res://placeholders/up.svg" id="15_qtqh7"]
 [ext_resource type="Texture2D" uid="uid://c0gk8si5xbmv" path="res://placeholders/up_left.svg" id="16_2wuci"]
 [ext_resource type="Texture2D" uid="uid://mqwpdrjlwr5" path="res://placeholders/up_right.svg" id="17_iruf7"]
+[ext_resource type="PackedScene" uid="uid://bhahq6mu8fe54" path="res://shotgun.tscn" id="18_q13i1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4flbx"]
 animations = [{
@@ -110,6 +112,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("13_pylmc")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("13_jm5j8")
 }],
 "loop": 1,
@@ -157,7 +167,7 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=498769465]
 sprite_frames = SubResource("SpriteFrames_4flbx")
-animation = &"up_right"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1897978928]
 shape = SubResource("CapsuleShape2D_onrkg")
@@ -168,6 +178,8 @@ one_shot = true
 
 [node name="DodgeInterval" type="Timer" parent="." unique_id=291659747]
 one_shot = true
+
+[node name="Shotgun" parent="." unique_id=1404943409 instance=ExtResource("18_q13i1")]
 
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="timeout" from="DodgeInterval" to="." method="_on_dodge_interval_timeout"]

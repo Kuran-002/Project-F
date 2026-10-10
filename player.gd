@@ -3,11 +3,11 @@ extends Area2D
 #		y	-1			0			1
 # x
 # -1    up_left			left		down_left
-# 0 	up				idle(right) down
+# 0 	up				idle		down
 # 1     up_right 		right 		down_right
 const DIRECTIONS:Array[Array] = [
 ["up_left", "left", "down_left"],
-["up", "right", "down"], 
+["up", "idle", "down"], 
 ["up_right", "right", "down_right"]] 
 
 const MOVE_SPEED:float = 500.0		# Move speed of player (px/s) 
