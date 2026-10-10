@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bo5hgttaqa6e1"]
+[gd_scene format=3 uid="uid://ca0r41jqirdjm"]
 
 [ext_resource type="Texture2D" uid="uid://bvdbcgs5t1gcn" path="res://placeholders/laserRed01.png" id="1_v7oki"]
-[ext_resource type="Script" path="res://bullet.gd" id="1_v8qja"]
+[ext_resource type="Script" uid="uid://cek7psafy0frh" path="res://bullet.gd" id="1_v8qja"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vv13y"]
 

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bhahq6mu8fe54"]
+
+[ext_resource type="Script" uid="uid://dwsoaouijhohu" path="res://shotgun.gd" id="1_hn68x"]
+[ext_resource type="PackedScene" uid="uid://ca0r41jqirdjm" path="res://bullet.tscn" id="2_5bb75"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vv13y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv13y"]
+
+[node name="Shotgun" type="Area2D" unique_id=1404943409]
+script = ExtResource("1_hn68x")
+Bullet = ExtResource("2_5bb75")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=628532137]
+sprite_frames = SubResource("SpriteFrames_vv13y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=217403763]
+shape = SubResource("RectangleShape2D_vv13y")
+disabled = true
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1854344885]
