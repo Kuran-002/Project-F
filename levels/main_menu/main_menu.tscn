@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://biv7xurogic0f"]
+
+[ext_resource type="Script" uid="uid://bfvh41cp0wkrd" path="res://levels/main_menu/main_menu_buttons.gd" id="1_nt5r4"]
+
+[node name="MainMenuRoot" type="Control" unique_id=396763825 node_paths=PackedStringArray("play_button", "settings_button", "how_to_play_button", "credits_button", "close_credits_button", "credits_panel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nt5r4")
+play_button = NodePath("TextureRect/MainMenuButtons/Playbutton")
+settings_button = NodePath("TextureRect/MainMenuButtons/SettingsButton")
+how_to_play_button = NodePath("TextureRect/MainMenuButtons/HowToPlayButton")
+credits_button = NodePath("TextureRect/CreditsButton")
+close_credits_button = NodePath("CreditsPanel/CloseCreditsButton")
+credits_panel = NodePath("CreditsPanel")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=292119647]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameTitleLabel" type="RichTextLabel" parent="TextureRect" unique_id=2021473495]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -960.0
+offset_right = 960.0
+offset_bottom = 150.0
+grow_horizontal = 2
+pivot_offset = Vector2(960, 75)
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "[center][font_size=100]Michael Jackson Game[/font_size][/center]"
+
+[node name="MainMenuButtons" type="VBoxContainer" parent="TextureRect" unique_id=954733434]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -375.0
+offset_right = 250.0
+offset_bottom = 375.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 0)
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Playbutton" type="Button" parent="TextureRect/MainMenuButtons" unique_id=1680761882]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="TextureRect/MainMenuButtons" unique_id=1825609090]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Settings"
+
+[node name="HowToPlayButton" type="Button" parent="TextureRect/MainMenuButtons" unique_id=1994707757]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "How To Play"
+
+[node name="CreditsButton" type="Button" parent="TextureRect" unique_id=825495711]
+layout_mode = 0
+offset_left = 1790.0
+offset_top = 950.0
+offset_right = 1890.0
+offset_bottom = 1050.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 25
+text = "Credits"
+
+[node name="CreditsPanel" type="Panel" parent="." unique_id=1943102241]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -250.0
+offset_right = 375.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel" unique_id=666375291]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][font_size=48]Credits[/font_size][/center]
+
+[center][font_size=40]kur4an[/font_size][/center]
+[center][font_size=40]laserdiamond[/font_size][/center]
+[center][font_size=40]bluuyoshi[/font_size][/center]
+[center][font_size=40]y8ngy0[/font_size][/center]
+[center][font_size=40]wafoshii[/font_size][/center]
+[center][font_size=40]pinekota[/font_size][/center]"
+
+[node name="CloseCreditsButton" type="Button" parent="CreditsPanel" unique_id=824547606]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
