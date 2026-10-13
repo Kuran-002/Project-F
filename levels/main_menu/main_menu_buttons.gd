@@ -1,6 +1,6 @@
 extends Control
 
-const GAME_SCENE = "res://levels/game/game.tscn"
+const GAME_SCENE = "res://main.tscn"
 
 @export var play_button: Button
 @export var settings_button: Button
