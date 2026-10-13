@@ -40,6 +40,7 @@ func _on_dodge_interval_timeout() -> void:
 	can_dodge = true 
 
 func _ready() -> void: 
+	add_to_group("player")
 	screen_size = get_viewport_rect().size 
 	start(Vector2(400, 400)) # TODO: REMOVE THIS 
 
