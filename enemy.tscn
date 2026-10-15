@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx1wg1x1mv3su"]
+
+[ext_resource type="Script" uid="uid://dhxgoacdvscla" path="res://enemy.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://bmu0gwxhuqwr5" path="res://placeholders/down.svg" id="2_tex"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_enemy"]
+radius = 60.0
+height = 160.0
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_enemy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_enemy")

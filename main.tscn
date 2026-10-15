@@ -1,7 +1,30 @@
-[gd_scene load_steps=0 format=3 uid="uid://odlb6t7odq8q"]
+[gd_scene load_steps=3 format=3 uid="uid://odlb6t7odq8q"]
 
 [ext_resource type="PackedScene" uid="uid://chbcbiqrmd0bp" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" path="res://enemy.tscn" id="2_enemy"]
 
-[node name="Main" type="Node" unique_id=1109261706]
+[node name="Main" type="Node"]
 
-[node name="Player" parent="." unique_id=1007525142 instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+
+[node name="Enemy" parent="." instance=ExtResource("2_enemy")]
+position = Vector2(960, 100)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PlayerHealth" type="ProgressBar" parent="HUD"]
+custom_minimum_size = Vector2(500, 50)
+offset_left = 18.0
+offset_top = 81.0
+offset_right = 518.0
+offset_bottom = 131.0
+value = 100.0
+
+[node name="EnemyHealth" type="ProgressBar" parent="HUD"]
+custom_minimum_size = Vector2(1600, 100)
+offset_left = 128.0
+offset_top = 932.0
+offset_right = 1728.0
+offset_bottom = 1032.0
+max_value = 500.0
+value = 500.0

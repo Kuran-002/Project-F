@@ -14,7 +14,10 @@ const MOVE_SPEED:float = 500.0		# Move speed of player (px/s)
 const DODGE_MULT:float = 2 		# Speed mult by dodge 
 
 var screen_size:Vector2				# Bounds for player movement 
-var health:int = 100				# Player health
+
+const MAX_HEALTH:int = 500
+var health:int = MAX_HEALTH			# Player health
+@onready var health_bar: ProgressBar = $"../HUD/PlayerHealth"
 var can_dodge:bool = true 			# Whether player can dodge 
 var is_dodging:bool = false 		# Whether the player is dodging 
 var velocity:Vector2 = Vector2.ZERO # Velocity vector of player 
@@ -40,8 +43,11 @@ func _on_dodge_interval_timeout() -> void:
 	can_dodge = true 
 
 func _ready() -> void: 
+	add_to_group("player")
 	screen_size = get_viewport_rect().size 
-	start(Vector2(400, 400)) # TODO: REMOVE THIS 
+	start(Vector2(400, 400)) # TODO: REMOVE THIS
+	health_bar.max_value = MAX_HEALTH
+	health_bar.value = health
 
 func _process(delta: float) -> void: 
 	# Recover if the one-shot timer stopped without its timeout handler running.
@@ -84,3 +90,16 @@ func _process(delta: float) -> void:
 	# check player bounds 
 	position += velocity * delta 
 	position = position.clamp(Vector2.ZERO, screen_size) 
+	
+func take_damage(amount:int) -> void:
+	health -= amount
+	health_bar.value = health
+	if health <= 0:
+		die()
+			
+
+func die() ->void:
+	queue_free()
+	
+	
+	

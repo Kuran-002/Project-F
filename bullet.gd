@@ -1,5 +1,4 @@
 extends Area2D
-signal boss_hit
 
 const SPEED:float = 1000.0 		# Speed of the bullet 
 
@@ -12,9 +11,10 @@ func _process(delta: float) -> void:
 	# Bullet goes straight forward
 	position += transform.x * SPEED * delta 
 	
-func _on_body_entered(body: Node2D) -> void:
-	# sends out a signal if it hits the boss 
-	if(body.is_in_group("boss")): 
-		boss_hit.emit() 
-	# bullet disappears after hitting something 
-	queue_free() 
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
+		area.call("take_damage", 10)
+		queue_free()
+
+func _on_body_entered(_body: Node2D) -> void:
+	queue_free()
