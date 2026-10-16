@@ -18,7 +18,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a8mn3")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -44,7 +44,7 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=628532137]
 sprite_frames = SubResource("SpriteFrames_knsld")
-animation = &"idle"
+animation = &"shoot"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=217403763]

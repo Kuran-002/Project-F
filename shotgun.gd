@@ -12,6 +12,7 @@ func _ready() -> void:
 	$AnimatedSprite2D.animation = "idle"
 
 func shoot() -> void: 
+	$AnimatedSprite2D.animation = "idle" 
 	var b = Bullet.instantiate()
 	get_tree().current_scene.add_child(b) 
 	b.global_transform = $Muzzle.global_transform 
