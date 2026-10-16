@@ -2,7 +2,6 @@ extends Area2D
 @export var Bullet: PackedScene
 
 const MAX_AMMO = 2				# Maximum amount of ammo
-
 var curr_ammo = 0				# Current amount of ammo 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,8 +13,16 @@ func _ready() -> void:
 func shoot() -> void: 
 	$AnimatedSprite2D.animation = "idle" 
 	var b = Bullet.instantiate()
+	var offset = -10 
 	get_tree().current_scene.add_child(b) 
 	b.global_transform = $Muzzle.global_transform 
+	b.global_rotation_degrees += offset
+	for i in range(4): 
+		offset += 4 
+		b = Bullet.instantiate()
+		get_tree().current_scene.add_child(b) 
+		b.global_transform = $Muzzle.global_transform 
+		b.global_rotation_degrees += offset
 	$AnimatedSprite2D.play("shoot")
 	
 
