@@ -8,11 +8,12 @@ var curr_ammo = 0				# Current amount of ammo
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	curr_ammo = 1000 # TODO REMOVE THIS 
+	$Muzzle.position = Vector2(10, -1)
 
 func shoot() -> void: 
 	var b = Bullet.instantiate()
 	get_tree().current_scene.add_child(b) 
-	b.transform = $Muzzle.global_transform 
+	b.global_transform = $Muzzle.global_transform 
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
