@@ -10,14 +10,18 @@ const DIRECTIONS:Array[Array] = [
 ["up", "idle", "down"], 
 ["up_right", "right", "down_right"]] 
 
-const MOVE_SPEED:float = 500.0		# Move speed of player (px/s) 
+const MOVE_SPEED:float = 170.0		# Move speed of player (px/s) 
 const DODGE_MULT:float = 2 		# Speed mult by dodge 
 
 var screen_size:Vector2				# Bounds for player movement 
 
 const MAX_HEALTH:int = 500
+const GUN_OFFSET = 15
+
 var health:int = MAX_HEALTH			# Player health
 @onready var health_bar: ProgressBar = $"../HUD/PlayerHealth"
+@onready var weapon_pivot:Marker2D = $WeaponPivot
+@onready var gun = $Shotgun
 var can_dodge:bool = true 			# Whether player can dodge 
 var is_dodging:bool = false 		# Whether the player is dodging 
 var velocity:Vector2 = Vector2.ZERO # Velocity vector of player 
@@ -45,7 +49,7 @@ func _on_dodge_interval_timeout() -> void:
 func _ready() -> void: 
 	add_to_group("player")
 	screen_size = get_viewport_rect().size 
-	start(Vector2(400, 400)) # TODO: REMOVE THIS
+	start(Vector2(320, 270)) # TODO: REMOVE THIS
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
 
@@ -55,6 +59,12 @@ func _process(delta: float) -> void:
 		_on_dodge_timer_timeout()
 	if !can_dodge and !is_dodging and $DodgeInterval.is_stopped():
 		can_dodge = true
+
+	#Aim gun towards mouse 
+	var mouse_direction = weapon_pivot.global_position.direction_to(get_global_mouse_position())
+	$Shotgun.global_position = weapon_pivot.global_position + mouse_direction * GUN_OFFSET
+	gun.scale.y = 1 if mouse_direction.x > 0 else -1 
+	gun.look_at(get_global_mouse_position())
 
 	# setting velocity vector (only if not dodging)
 	if (!is_dodging): 
@@ -73,9 +83,8 @@ func _process(delta: float) -> void:
 	# normalize and adjust velocity 
 	if (velocity.length() > 0): 
 		velocity = velocity.normalized() * MOVE_SPEED
-		$AnimatedSprite2D.play() 
-	else: 
-		$AnimatedSprite2D.stop() 
+
+	$AnimatedSprite2D.play() 
 
 	# Start dodge once per key press so holding the key cannot chain dodges.
 	if Input.is_action_just_pressed("dodge") and can_dodge and !is_dodging:

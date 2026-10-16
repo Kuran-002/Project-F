@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED:float = 1000.0 		# Speed of the bullet 
+const SPEED:float = 700 		# Speed of the bullet 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

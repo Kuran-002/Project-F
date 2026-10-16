@@ -1,11 +1,41 @@
-[gd_scene load_steps=0 format=3 uid="uid://bhahq6mu8fe54"]
+[gd_scene format=3 uid="uid://bhahq6mu8fe54"]
 
 [ext_resource type="Script" uid="uid://dwsoaouijhohu" path="res://shotgun.gd" id="1_hn68x"]
 [ext_resource type="PackedScene" uid="uid://ca0r41jqirdjm" path="res://bullet.tscn" id="2_5bb75"]
+[ext_resource type="Texture2D" uid="uid://dvecnv6x5ii0c" path="res://placeholders/firing_gun_sprite_sheet.png" id="3_7oeqp"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_vv13y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8mn3"]
+atlas = ExtResource("3_7oeqp")
+region = Rect2(138, 76, 46, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gda1h"]
+atlas = ExtResource("3_7oeqp")
+region = Rect2(92, 76, 46, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_knsld"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8mn3")
+}],
+"loop": 0,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gda1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8mn3")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vv13y"]
+size = Vector2(29, 10)
 
 [node name="Shotgun" type="Area2D" unique_id=1404943409]
 script = ExtResource("1_hn68x")
@@ -13,10 +43,15 @@ Bullet = ExtResource("2_5bb75")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=628532137]
-sprite_frames = SubResource("SpriteFrames_vv13y")
+sprite_frames = SubResource("SpriteFrames_knsld")
+animation = &"shoot"
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=217403763]
+position = Vector2(-5.5, 1)
 shape = SubResource("RectangleShape2D_vv13y")
 disabled = true
+metadata/_edit_group_ = true
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=1854344885]
+position = Vector2(10, -1)
