@@ -16,6 +16,7 @@ const DODGE_MULT:float = 2 		# Speed mult by dodge
 var screen_size:Vector2				# Bounds for player movement 
 
 const MAX_HEALTH:int = 500
+const GUN_OFFSET = 50
 var health:int = MAX_HEALTH			# Player health
 @onready var health_bar: ProgressBar = $"../HUD/PlayerHealth"
 @onready var weapon_pivot:Marker2D = $WeaponPivot
@@ -60,7 +61,7 @@ func _process(delta: float) -> void:
 
 	#Aim gun towards mouse 
 	var mouse_direction = weapon_pivot.global_position.direction_to(get_global_mouse_position())
-	$Shotgun.global_position = weapon_pivot.global_position + mouse_direction * 50 
+	$Shotgun.global_position = weapon_pivot.global_position + mouse_direction * GUN_OFFSET
 	gun.scale.y = 1 if mouse_direction.x > 0 else -1 
 	gun.look_at(get_global_mouse_position())
 
