@@ -49,7 +49,7 @@ func _on_dodge_interval_timeout() -> void:
 func _ready() -> void: 
 	add_to_group("player")
 	screen_size = get_viewport_rect().size 
-	start(Vector2(320, 270)) # TODO: REMOVE THIS
+	start(Vector2(320, 270)) # DO NOT TOUCH 
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
 
@@ -77,19 +77,18 @@ func _process(delta: float) -> void:
 			velocity.x -= 1
 		if Input.is_action_pressed("move_right"): 
 			velocity.x += 1
-
-	# Sprite direction based on mouse direction 
-	var direction_x = 0 
-	var direction_y = 0 
-	if (mouse_direction.y > 0.2): 
-		direction_y += 1 
-	if (mouse_direction.y < -0.2): 
-		direction_y -= 1 
-	if (mouse_direction.x > 0.2): 
-		direction_x += 1 
-	if (mouse_direction.x < -0.2): 
-		direction_x -= 1 
-	$AnimatedSprite2D.animation = DIRECTIONS[direction_x + 1][direction_y + 1]
+		# Sprite direction based on mouse direction 
+		var direction_x = 0 
+		var direction_y = 0 
+		if (mouse_direction.y > 0.2): 
+			direction_y += 1 
+		if (mouse_direction.y < -0.2): 
+			direction_y -= 1 
+		if (mouse_direction.x > 0.2): 
+			direction_x += 1 
+		if (mouse_direction.x < -0.2): 
+			direction_x -= 1 
+		$AnimatedSprite2D.animation = DIRECTIONS[direction_x + 1][direction_y + 1]
 
 	# Gun is in front of player when they are facing away 
 	gun.show_behind_parent = false 
@@ -106,10 +105,6 @@ func _process(delta: float) -> void:
 	if (velocity.length() > 0): 
 		velocity = velocity.normalized() * MOVE_SPEED
 
-	if (velocity.length() == 0): 
-		$AnimatedSprite2D.stop() 
-	else:
-		$AnimatedSprite2D.play() 
 
 	# Start dodge once per key press so holding the key cannot chain dodges.
 	if Input.is_action_just_pressed("dodge") and can_dodge and !is_dodging:
@@ -120,6 +115,11 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.animation = "dodge_" + $AnimatedSprite2D.animation
 	if(is_dodging): 
 		velocity *= DODGE_MULT 
+
+	if (velocity.length() == 0): 
+		$AnimatedSprite2D.stop() 
+	else:
+		$AnimatedSprite2D.play() 
 
 	# check player bounds 
 	position += velocity * delta 

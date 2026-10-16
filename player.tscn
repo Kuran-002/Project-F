@@ -1158,8 +1158,10 @@ script = ExtResource("1_4flbx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=67543614]
 sprite_frames = SubResource("SpriteFrames_4flbx")
-animation = &"down_left"
+animation = &"dodge_up_left"
 autoplay = "left"
+frame = 7
+frame_progress = 0.92037743
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=753808998]
 shape = SubResource("CapsuleShape2D_onrkg")
