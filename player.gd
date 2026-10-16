@@ -77,20 +77,39 @@ func _process(delta: float) -> void:
 			velocity.x -= 1
 		if Input.is_action_pressed("move_right"): 
 			velocity.x += 1
-		# Adjust sprite based on direction moving 
-		$AnimatedSprite2D.animation = DIRECTIONS[velocity.x + 1][velocity.y + 1]
+
+	# Sprite direction based on mouse direction 
+	var direction_x = 0 
+	var direction_y = 0 
+	if (mouse_direction.y > 0.2): 
+		direction_y += 1 
+	if (mouse_direction.y < -0.2): 
+		direction_y -= 1 
+	if (mouse_direction.x > 0.2): 
+		direction_x += 1 
+	if (mouse_direction.x < -0.2): 
+		direction_x -= 1 
+	$AnimatedSprite2D.animation = DIRECTIONS[direction_x + 1][direction_y + 1]
+
+	# Gun is in front of player when they are facing away 
+	gun.show_behind_parent = false 
+	if ($AnimatedSprite2D.animation == "up"): 
+		gun.show_behind_parent = true 
 
 	# Adjust sprite based on mouse direction 
-	if ($AnimatedSprite2D.animation == "left" && mouse_direction.x > 0): 
-		$AnimatedSprite2D.animation = "right" 
-	if ($AnimatedSprite2D.animation == "right" && mouse_direction.x < 0): 
-		$AnimatedSprite2D.animation = "left" 
+	#if ($AnimatedSprite2D.animation == "left" && mouse_direction.x > 0): 
+	#	$AnimatedSprite2D.animation = "right" 
+	#if ($AnimatedSprite2D.animation == "right" && mouse_direction.x < 0): 
+	#	$AnimatedSprite2D.animation = "left" 
 
 	# normalize and adjust velocity 
 	if (velocity.length() > 0): 
 		velocity = velocity.normalized() * MOVE_SPEED
 
-	$AnimatedSprite2D.play() 
+	if (velocity.length() == 0): 
+		$AnimatedSprite2D.stop() 
+	else:
+		$AnimatedSprite2D.play() 
 
 	# Start dodge once per key press so holding the key cannot chain dodges.
 	if Input.is_action_just_pressed("dodge") and can_dodge and !is_dodging:

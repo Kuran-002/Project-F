@@ -1153,11 +1153,12 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
 [node name="Player" type="Area2D" unique_id=870248829]
+visible = false
 script = ExtResource("1_4flbx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=67543614]
 sprite_frames = SubResource("SpriteFrames_4flbx")
-animation = &"left"
+animation = &"down_left"
 autoplay = "left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=753808998]
