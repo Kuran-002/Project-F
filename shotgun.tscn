@@ -17,12 +17,20 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a8mn3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gda1h")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gda1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8mn3")
+}],
+"loop": 0,
+"name": &"shoot",
 "speed": 5.0
 }]
 
@@ -36,7 +44,7 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=628532137]
 sprite_frames = SubResource("SpriteFrames_knsld")
-frame_progress = 0.10694491
+animation = &"idle"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=217403763]
