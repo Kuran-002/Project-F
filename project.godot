@@ -16,14 +16,16 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Project F"
 run/main_scene="uid://biv7xurogic0f"
-config/features=PackedStringArray("4.7", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/stretch/mode="canvas_items"
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
@@ -82,4 +84,5 @@ start={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

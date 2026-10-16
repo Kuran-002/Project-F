@@ -30,58 +30,59 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -960.0
-offset_right = 960.0
-offset_bottom = 150.0
+offset_left = -320.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 70.0
 grow_horizontal = 2
-pivot_offset = Vector2(960, 75)
-theme_override_font_sizes/normal_font_size = 31
+pivot_offset = Vector2(320, 25)
+theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
-text = "[center][font_size=100]Michael Jackson Game[/font_size][/center]"
+text = "[center][font_size=33]Michael Jackson Game[/font_size][/center]"
 
 [node name="MainMenuButtons" type="VBoxContainer" parent="TextureRect" unique_id=954733434]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(67, 17)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -375.0
-offset_right = 250.0
-offset_bottom = 375.0
+offset_left = -83.0
+offset_top = -125.0
+offset_right = 83.0
+offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(960, 0)
-theme_override_constants/separation = 25
+pivot_offset = Vector2(320, 0)
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Playbutton" type="Button" parent="TextureRect/MainMenuButtons" unique_id=1680761882]
-custom_minimum_size = Vector2(250, 50)
+custom_minimum_size = Vector2(83, 17)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 16
 text = "Play"
 
 [node name="SettingsButton" type="Button" parent="TextureRect/MainMenuButtons" unique_id=1825609090]
-custom_minimum_size = Vector2(250, 50)
+custom_minimum_size = Vector2(83, 17)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 16
 text = "Settings"
 
 [node name="HowToPlayButton" type="Button" parent="TextureRect/MainMenuButtons" unique_id=1994707757]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 16
 text = "How To Play"
 
 [node name="CreditsButton" type="Button" parent="TextureRect" unique_id=825495711]
 layout_mode = 0
-offset_left = 1790.0
-offset_top = 950.0
-offset_right = 1890.0
-offset_bottom = 1050.0
+offset_left = 597.0
+offset_top = 317.0
+offset_right = 630.0
+offset_bottom = 350.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 8
 text = "Credits"
 
 [node name="CreditsPanel" type="Panel" parent="." unique_id=1943102241]
@@ -92,10 +93,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -375.0
-offset_top = -250.0
-offset_right = 375.0
-offset_bottom = 250.0
+offset_left = -125.0
+offset_top = -83.0
+offset_right = 125.0
+offset_bottom = 83.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
@@ -108,14 +109,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "[center][font_size=48]Credits[/font_size][/center]
+text = "[center][font_size=16]Credits[/font_size][/center]
 
-[center][font_size=40]kur4an[/font_size][/center]
-[center][font_size=40]laserdiamond[/font_size][/center]
-[center][font_size=40]bluuyoshi[/font_size][/center]
-[center][font_size=40]y8ngy0[/font_size][/center]
-[center][font_size=40]wafoshii[/font_size][/center]
-[center][font_size=40]pinekota[/font_size][/center]"
+[center][font_size=13]kur4an[/font_size][/center]
+[center][font_size=13]laserdiamond[/font_size][/center]
+[center][font_size=13]bluuyoshi[/font_size][/center]
+[center][font_size=13]y8ngy0[/font_size][/center]
+[center][font_size=13]wafoshii[/font_size][/center]
+[center][font_size=13]pinekota[/font_size][/center]"
 
 [node name="CloseCreditsButton" type="Button" parent="CreditsPanel" unique_id=824547606]
 layout_mode = 1
@@ -124,10 +125,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -60.0
-offset_top = -60.0
-offset_right = -20.0
-offset_bottom = -20.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -7.0
+offset_bottom = -7.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset_ratio = Vector2(0.5, 0.5)

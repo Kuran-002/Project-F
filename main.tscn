@@ -8,23 +8,25 @@
 [node name="Player" parent="." unique_id=1053207209 instance=ExtResource("1_ig7tw")]
 
 [node name="Enemy" parent="." unique_id=1868289513 instance=ExtResource("2_enemy")]
-position = Vector2(960, 100)
+position = Vector2(330, 64)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1636802645]
 
 [node name="PlayerHealth" type="ProgressBar" parent="HUD" unique_id=909607645]
-custom_minimum_size = Vector2(500, 50)
-offset_left = 18.0
-offset_top = 81.0
-offset_right = 518.0
-offset_bottom = 131.0
+custom_minimum_size = Vector2(160, 16)
+offset_left = 16.0
+offset_top = 22.0
+offset_right = 176.0
+offset_bottom = 38.0
 value = 100.0
+show_percentage = false
 
 [node name="EnemyHealth" type="ProgressBar" parent="HUD" unique_id=1849424510]
-custom_minimum_size = Vector2(1600, 100)
-offset_left = 128.0
-offset_top = 932.0
-offset_right = 1728.0
-offset_bottom = 1032.0
+custom_minimum_size = Vector2(520, 20)
+offset_left = 63.0
+offset_top = 316.0
+offset_right = 583.0
+offset_bottom = 336.0
 max_value = 500.0
 value = 500.0
+show_percentage = false
