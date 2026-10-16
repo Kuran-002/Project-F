@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
 
 	# Gun is in front of player when they are facing away 
 	gun.show_behind_parent = false 
-	if ($AnimatedSprite2D.animation == "up"): 
+	if ($AnimatedSprite2D.animation == "up" || $AnimatedSprite2D.animation == "dodge_up"): 
 		gun.show_behind_parent = true 
 
 	# Adjust sprite based on mouse direction 
