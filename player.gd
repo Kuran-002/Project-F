@@ -80,6 +80,12 @@ func _process(delta: float) -> void:
 		# Adjust sprite based on direction moving 
 		$AnimatedSprite2D.animation = DIRECTIONS[velocity.x + 1][velocity.y + 1]
 
+	# Adjust sprite based on mouse direction 
+	if ($AnimatedSprite2D.animation == "left" && mouse_direction.x > 0): 
+		$AnimatedSprite2D.animation = "right" 
+	if ($AnimatedSprite2D.animation == "right" && mouse_direction.x < 0): 
+		$AnimatedSprite2D.animation = "left" 
+
 	# normalize and adjust velocity 
 	if (velocity.length() > 0): 
 		velocity = velocity.normalized() * MOVE_SPEED
