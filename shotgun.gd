@@ -43,11 +43,13 @@ func shoot() -> void:
 	$AnimatedSprite2D.play("shoot")
 	
 func reload() -> void:
+	$AnimatedSprite2D.play("reload")
 	reload_timer.start()
 	emit_ammo()
 
 # Moves shells from the reserve into the gun once the timer ends
 func _on_reload_finished() -> void:
+	$AnimatedSprite2D.play("idle")
 	var moved = min(MAX_AMMO - curr_ammo, reserve_ammo)
 	curr_ammo += moved
 	reserve_ammo -= moved

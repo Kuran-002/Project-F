@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://ca0r41jqirdjm" path="res://bullet.tscn" id="2_5bb75"]
 [ext_resource type="Texture2D" uid="uid://dvecnv6x5ii0c" path="res://placeholders/firing_gun_sprite_sheet.png" id="3_7oeqp"]
 
+[ext_resource type="Texture2D" path="res://placeholders/reload_placeholder.png" id="4_reload"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8mn3"]
 atlas = ExtResource("3_7oeqp")
 region = Rect2(138, 76, 46, 14)
@@ -20,6 +22,14 @@ animations = [{
 }],
 "loop": 0,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_reload")
+}],
+"loop": true,
+"name": &"reload",
 "speed": 5.0
 }, {
 "frames": [{
