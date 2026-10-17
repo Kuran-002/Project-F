@@ -1,4 +1,4 @@
-[gd_scene load_steps=186 format=3 uid="uid://chbcbiqrmd0bp"]
+[gd_scene format=3 uid="uid://chbcbiqrmd0bp"]
 
 [ext_resource type="Script" uid="uid://3o8567f7bjm" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dnm6ywjhn7phd" path="res://ASSET/player_DodgeDown.png" id="2_606se"]
@@ -721,7 +721,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iruf7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_down",
 "speed": 15.0
 }, {
@@ -756,7 +756,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pgbbb")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_down_left",
 "speed": 15.0
 }, {
@@ -791,7 +791,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ieltc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_down_right",
 "speed": 15.0
 }, {
@@ -826,7 +826,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v2t6f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_left",
 "speed": 15.0
 }, {
@@ -861,7 +861,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mgmjd")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_right",
 "speed": 15.0
 }, {
@@ -896,7 +896,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_77e46")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_up",
 "speed": 15.0
 }, {
@@ -931,7 +931,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ihbc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_up_left",
 "speed": 15.0
 }, {
@@ -966,7 +966,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rpay4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dodge_up_right",
 "speed": 15.0
 }, {
@@ -989,7 +989,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dtw5u")
 }],
-"loop": true,
+"loop": 1,
 "name": &"down",
 "speed": 15.0
 }, {
@@ -1018,7 +1018,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jccjf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"down_left",
 "speed": 15.0
 }, {
@@ -1047,7 +1047,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bobas")
 }],
-"loop": true,
+"loop": 1,
 "name": &"down_right",
 "speed": 15.0
 }, {
@@ -1082,7 +1082,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s1202")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 11.0
 }, {
@@ -1099,7 +1099,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_idle_down_3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_down",
 "speed": 8.0
 }, {
@@ -1119,7 +1119,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_idle_left_4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_left",
 "speed": 8.0
 }, {
@@ -1139,7 +1139,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_idle_right_4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_right",
 "speed": 8.0
 }, {
@@ -1156,7 +1156,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_idle_up_3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_up",
 "speed": 8.0
 }, {
@@ -1185,7 +1185,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_api4a")
 }],
-"loop": true,
+"loop": 1,
 "name": &"left",
 "speed": 15.0
 }, {
@@ -1214,7 +1214,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sd4eq")
 }],
-"loop": true,
+"loop": 1,
 "name": &"right",
 "speed": 15.0
 }, {
@@ -1237,7 +1237,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_djlqh")
 }],
-"loop": true,
+"loop": 1,
 "name": &"up",
 "speed": 15.0
 }, {
@@ -1266,7 +1266,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lhxi5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"up_left",
 "speed": 15.0
 }, {
@@ -1295,37 +1295,41 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kgchn")
 }],
-"loop": true,
+"loop": 1,
 "name": &"up_right",
 "speed": 15.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+radius = 9.0
 
-[node name="Player" type="Area2D"]
-visible = false
+[node name="Player" type="Area2D" unique_id=776447698]
 script = ExtResource("1_4flbx")
+metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1985380388]
 sprite_frames = SubResource("SpriteFrames_4flbx")
 animation = &"idle_left"
 autoplay = "idle_left"
-frame_progress = 0.9824961
+frame = 2
+frame_progress = 0.49099708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1441230782]
+position = Vector2(3, 0)
 shape = SubResource("CapsuleShape2D_onrkg")
 
-[node name="DodgeTimer" type="Timer" parent="."]
+[node name="DodgeTimer" type="Timer" parent="." unique_id=1390118998]
 wait_time = 0.25
 one_shot = true
 
-[node name="DodgeInterval" type="Timer" parent="."]
+[node name="DodgeInterval" type="Timer" parent="." unique_id=1033529419]
+wait_time = 0.2
 one_shot = true
 
-[node name="Shotgun" parent="." instance=ExtResource("18_q13i1")]
+[node name="Shotgun" parent="." unique_id=923793885 instance=ExtResource("18_q13i1")]
 position = Vector2(16, 3)
 
-[node name="WeaponPivot" type="Marker2D" parent="."]
+[node name="WeaponPivot" type="Marker2D" parent="." unique_id=2012827874]
 
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="timeout" from="DodgeInterval" to="." method="_on_dodge_interval_timeout"]

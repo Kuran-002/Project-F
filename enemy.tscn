@@ -1,18 +1,34 @@
 [gd_scene format=3 uid="uid://bx1wg1x1mv3su"]
 
 [ext_resource type="Script" uid="uid://dhxgoacdvscla" path="res://enemy.gd" id="1_enemy"]
+[ext_resource type="PackedScene" uid="uid://b5mu858cv2dwl" path="res://wave.tscn" id="2_epg4t"]
 [ext_resource type="Texture2D" uid="uid://bmu0gwxhuqwr5" path="res://placeholders/down.svg" id="2_tex"]
+[ext_resource type="Script" uid="uid://dos3qhffr4v0a" path="res://rhythm_notifier-6a45663809d9d6e8bfeaad0000fd19344d2dfbfe/addons/rhythm_notifier/rhythm_notifier.gd" id="3_qi2p4"]
+[ext_resource type="AudioStream" uid="uid://b2trfrpm100y6" path="res://AUDIO/13 - Bad.mp3" id="4_iifgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_enemy"]
 radius = 20.0
 height = 53.0
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Area2D" unique_id=483131726]
 script = ExtResource("1_enemy")
+Wave = ExtResource("2_epg4t")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1, 1)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1794283369]
 texture = ExtResource("2_tex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1108495638]
 shape = SubResource("CapsuleShape2D_enemy")
+
+[node name="RhythmNotifier" type="Node" parent="." unique_id=317600369 node_paths=PackedStringArray("audio_stream_player")]
+script = ExtResource("3_qi2p4")
+bpm = 114.0
+beat_length = 0.5263157894736842
+audio_stream_player = NodePath("../Music")
+metadata/_custom_type_script = "uid://dos3qhffr4v0a"
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1272127455]
+stream = ExtResource("4_iifgy")
+
+[node name="WeaponPivot" type="Marker2D" parent="." unique_id=214316117]
+position = Vector2(0, 30)
