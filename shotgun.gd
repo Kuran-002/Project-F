@@ -1,6 +1,8 @@
 extends Area2D
 @export var Bullet: PackedScene
 
+@onready var main_game: Node = get_parent().get_parent()
+
 const MAX_AMMO = 2				# Maximum amount of ammo
 var curr_ammo = 0				# Current amount of ammo 
 
@@ -28,6 +30,10 @@ func shoot() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Attempts to shoot. Won't shoot if out of ammo 
+	# Game is not active. Don't shoot
+	if !main_game.is_active:
+		return
+		
+	# Attempts to shoot. Won't shoot if out of ammo
 	if (Input.is_action_just_pressed("shoot") and curr_ammo > 0): 
 		shoot() 
