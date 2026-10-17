@@ -26,6 +26,14 @@ var can_dodge:bool = true 			# Whether player can dodge
 var is_dodging:bool = false 		# Whether the player is dodging 
 var velocity:Vector2 = Vector2.ZERO # Velocity vector of player 
 
+func is_moving_backwards(aim_direction:Vector2) -> bool:
+	return velocity.length_squared() > 0.0 and velocity.normalized().dot(aim_direction) < 0.0
+
+func get_idle_animation(aim_direction:Vector2) -> String:
+	if abs(aim_direction.x) > abs(aim_direction.y):
+		return "idle_right" if aim_direction.x > 0.0 else "idle_left"
+	return "idle_down" if aim_direction.y > 0.0 else "idle_up"
+
 # Places the player at a given starting position 
 # pos -> starting position given as vector 
 func start(pos:Vector2): 
@@ -88,11 +96,14 @@ func _process(delta: float) -> void:
 			direction_x += 1 
 		if (mouse_direction.x < -0.2): 
 			direction_x -= 1 
-		$AnimatedSprite2D.animation = DIRECTIONS[direction_x + 1][direction_y + 1]
+		if velocity.length_squared() == 0.0:
+			$AnimatedSprite2D.animation = get_idle_animation(mouse_direction)
+		else:
+			$AnimatedSprite2D.animation = DIRECTIONS[direction_x + 1][direction_y + 1]
 
 	# Gun is in front of player when they are facing away 
 	gun.show_behind_parent = false 
-	if ($AnimatedSprite2D.animation == "up" || $AnimatedSprite2D.animation == "dodge_up"): 
+	if ($AnimatedSprite2D.animation == "up" || $AnimatedSprite2D.animation == "dodge_up" || $AnimatedSprite2D.animation == "idle_up"):
 		gun.show_behind_parent = true 
 
 	# Adjust sprite based on mouse direction 
@@ -113,13 +124,13 @@ func _process(delta: float) -> void:
 		can_dodge = false 
 		$CollisionShape2D.disabled = true 
 		$AnimatedSprite2D.animation = "dodge_" + $AnimatedSprite2D.animation
+		if is_moving_backwards(mouse_direction):
+			$AnimatedSprite2D.play_backwards()
 	if(is_dodging): 
 		velocity *= DODGE_MULT 
 
-	if (velocity.length() == 0): 
-		$AnimatedSprite2D.stop() 
-	else:
-		$AnimatedSprite2D.play() 
+	$AnimatedSprite2D.speed_scale = -1.0 if is_moving_backwards(mouse_direction) else 1.0
+	$AnimatedSprite2D.play()
 
 	# check player bounds 
 	position += velocity * delta 
