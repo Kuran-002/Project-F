@@ -17,9 +17,8 @@ func start() -> void:
 	# Start music on start
 	var rng = RandomNumberGenerator.new() 
 	rhythm.audio_stream_player.play() 
-	rhythm.beats(2).connect(func(i): attack(0)) 
-	rhythm.beats(5).connect(func(i): attack(-0.2)) 
-	rhythm.beats(7).connect(func(i): attack(-0.2)) 
+	rhythm.beats(4).connect(func(i): attack(0, false)) 
+	rhythm.beats(8).connect(func(i): sweep_attack(true))
 
 func _ready() -> void:
 	add_to_group("enemy")    
@@ -49,13 +48,30 @@ func take_damage(amaount:int) -> void:
 	health_bar.value = health
 	if health <= 0:
 		die()
+
+func sweep_attack(clockwise:bool) -> void: 
+	var angle:float = 0.0 
+	var divisions:int = 10 
+	var offset:float = (PI / divisions)
+	divisions += 1 
+	if (!clockwise): 
+		angle = PI 
+		offset = -offset
+
+	for i in range(divisions): 
+		attack(angle, false)	
+		await get_tree().create_timer(0.2 / divisions).timeout
+		angle += offset 
 		
-func attack(offset:float) -> void: 
+func attack(angle:float, is_offset:bool = true) -> void: 
 	# TODO: Add attack animation?
 	var b = Wave.instantiate()
 	get_tree().current_scene.add_child(b) 
 	b.global_transform = $WeaponPivot.global_transform
-	b.global_rotation += offset
+	if (is_offset): 
+		b.global_rotation += angle  
+	else: 
+		b.global_rotation = angle 
 
 func die() -> void:
 	queue_free()
