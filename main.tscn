@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bhcfhmgxymt5o" path="res://levels/game/main_game.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://chbcbiqrmd0bp" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bx1wg1x1mv3su" path="res://enemy.tscn" id="2_enemy"]
+[ext_resource type="Theme" uid="uid://csnkrwkh8euos" path="res://ASSET/theme/vaporwave_sunset.tres" id="4_1bvp3"]
+[ext_resource type="FontFile" uid="uid://cpmpva46rmy0l" path="res://ASSET/font/GravityRegular5.ttf" id="5_lquwl"]
 
 [node name="Main" type="Node" unique_id=39981920 node_paths=PackedStringArray("result_screen", "title_label", "subtitle_label", "play_again_button", "main_menu_button")]
 script = ExtResource("1_h2yge")
@@ -25,6 +27,7 @@ offset_left = 16.0
 offset_top = 22.0
 offset_right = 176.0
 offset_bottom = 38.0
+theme = ExtResource("4_1bvp3")
 value = 100.0
 show_percentage = false
 
@@ -34,6 +37,7 @@ offset_left = 63.0
 offset_top = 316.0
 offset_right = 583.0
 offset_bottom = 336.0
+theme = ExtResource("4_1bvp3")
 max_value = 500.0
 value = 500.0
 show_percentage = false
@@ -45,17 +49,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.4045111, 0.40451115, 0.4045111, 1)
 
 [node name="TitleLabel" type="RichTextLabel" parent="ResultScreen" unique_id=2023361045]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -150.0
-offset_bottom = -150.0
+offset_top = -140.0
+offset_bottom = -140.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/normal_font = ExtResource("5_lquwl")
 bbcode_enabled = true
 text = "[font_size=48][center]Game Over![/center][/font_size]"
 fit_content = true
@@ -68,10 +74,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -85.0
-offset_bottom = -85.0
+offset_top = -75.0
+offset_bottom = -75.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("5_lquwl")
 bbcode_enabled = true
 text = "[font_size=25][center]You Died![/center][/font_size]"
 fit_content = true
@@ -95,8 +102,12 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="PlayAgain" type="Button" parent="ResultScreen/VBoxContainer" unique_id=101233547]
 layout_mode = 2
+theme = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("5_lquwl")
 text = "Play Again"
 
 [node name="MainMenu" type="Button" parent="ResultScreen/VBoxContainer" unique_id=281950450]
 layout_mode = 2
+theme = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("5_lquwl")
 text = "Main Menu"
