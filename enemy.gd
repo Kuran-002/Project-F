@@ -12,13 +12,14 @@ const DIRECTION_NAMES:Array[String] = [
 
 var textures:Array[Texture2D] = []
 var target:Node2D
+var rng = RandomNumberGenerator.new() 
 
 func start() -> void: 
 	# Start music on start
-	var rng = RandomNumberGenerator.new() 
 	rhythm.audio_stream_player.play() 
-	rhythm.beats(4).connect(func(i): attack(0, false)) 
+	rhythm.beats(4).connect(func(i): random_attack(PI / 4)) 
 	rhythm.beats(8).connect(func(i): sweep_attack(true))
+	rhythm.beats(5).connect(func(i): side_attack(PI/6))
 
 func _ready() -> void:
 	add_to_group("enemy")    
@@ -49,6 +50,7 @@ func take_damage(amaount:int) -> void:
 	if health <= 0:
 		die()
 
+# Sweeping attack from left to right or right to left
 func sweep_attack(clockwise:bool) -> void: 
 	var angle:float = 0.0 
 	var divisions:int = 10 
@@ -57,11 +59,20 @@ func sweep_attack(clockwise:bool) -> void:
 	if (!clockwise): 
 		angle = PI 
 		offset = -offset
-
 	for i in range(divisions): 
 		attack(angle, false)	
 		await get_tree().create_timer(0.2 / divisions).timeout
 		angle += offset 
+
+# Attack to the left and right of player by offset
+func side_attack(offset:float) -> void: 
+	attack(offset) 
+	attack(-offset) 
+
+# Attacks in randomized offset within angle set by cone 
+func random_attack(angle:float) -> void: 
+	var offset:float = rng.randf_range(-(angle/2), (angle/2))
+	attack(offset) 
 		
 func attack(angle:float, is_offset:bool = true) -> void: 
 	# TODO: Add attack animation?
