@@ -51,10 +51,12 @@ func shoot() -> void:
 		b.global_transform = $Muzzle.global_transform 
 		b.global_rotation_degrees += offset
 	$AnimatedSprite2D.play("shoot")
+	$ShootSound.play()
 	
 func reload() -> void:
 	eject_shells(MAX_AMMO - curr_ammo)
 	$AnimatedSprite2D.play("reload")
+	$ReloadSound.play()
 	reload_timer.start()
 	emit_ammo()
 

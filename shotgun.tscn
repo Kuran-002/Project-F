@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dt1xeodhbs1hu" path="res://placeholders/reload_placeholder.png" id="4_reload"]
 [ext_resource type="Texture2D" uid="uid://hbt5k1flsk8t" path="res://ASSET/Shotfin_shoot.png" id="5_gda1h"]
 [ext_resource type="PackedScene" path="res://shell.tscn" id="6_shell"]
+[ext_resource type="AudioStream" uid="uid://pnxdx7qtnc5l" path="res://Audio/Shotgun_shoot.mp3" id="7_shoot"]
+[ext_resource type="AudioStream" uid="uid://cck4ny4yvnmn0" path="res://Audio/Shotgun_reload.mp3" id="8_reload"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvfgu"]
 atlas = ExtResource("3_gda1h")
@@ -74,3 +76,9 @@ metadata/_edit_group_ = true
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(10, -1)
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_shoot")
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_reload")
