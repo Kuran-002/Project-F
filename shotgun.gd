@@ -1,5 +1,6 @@
 extends Area2D
 @export var Bullet: PackedScene
+@export var Shell: PackedScene
 
 signal ammo_changed(current: int, reserve: int, reloading: bool)
 const MAX_AMMO = 2				# Shells the gun holds
@@ -13,11 +14,20 @@ var reload_timer:Timer
 func _ready() -> void:
 	$Muzzle.position = Vector2(10, -1)
 	$AnimatedSprite2D.animation = "idle"
+	$AnimatedSprite2D.animation_finished.connect(_on_animated_sprite_animation_finished)
 	reload_timer = Timer.new()
 	reload_timer.one_shot = true
 	reload_timer.wait_time = RELOAD_TIME
 	reload_timer.timeout.connect(_on_reload_finished)
 	add_child(reload_timer)
+
+func _on_animated_sprite_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "shoot":
+		$AnimatedSprite2D.play("idle")
+
+func add_reserve_ammo(amount: int) -> void:
+	reserve_ammo += amount
+	emit_ammo()
 
 func is_reloading() -> bool:
 	return !reload_timer.is_stopped()
@@ -28,7 +38,7 @@ func emit_ammo() -> void:
 func shoot() -> void: 
 	$AnimatedSprite2D.animation = "idle" 
 	var b = Bullet.instantiate()
-	var offset = -10 
+	var offset = -10
 	curr_ammo -= 1
 	emit_ammo()
 	get_tree().current_scene.add_child(b) 
@@ -41,11 +51,22 @@ func shoot() -> void:
 		b.global_transform = $Muzzle.global_transform 
 		b.global_rotation_degrees += offset
 	$AnimatedSprite2D.play("shoot")
+	$ShootSound.play()
 	
 func reload() -> void:
+	eject_shells(MAX_AMMO - curr_ammo)
 	$AnimatedSprite2D.play("reload")
+	$ReloadSound.play()
 	reload_timer.start()
 	emit_ammo()
+
+# Throws spent shells out of the side of the gun; they stay on the floor
+func eject_shells(count: int) -> void:
+	var side = Vector2(-global_transform.x.y, global_transform.x.x) * -sign(scale.y)
+	for i in count:
+		var shell = Shell.instantiate()
+		get_tree().current_scene.add_child(shell)
+		shell.launch(global_position, side)
 
 # Moves shells from the reserve into the gun once the timer ends
 func _on_reload_finished() -> void:

@@ -16,7 +16,7 @@ const DODGE_MULT:float = 2 		# Speed mult by dodge
 var screen_size:Vector2				# Bounds for player movement 
 
 const MAX_HEALTH:int = 500
-const GUN_OFFSET = 15
+const GUN_OFFSET = 10
 
 var health:int = MAX_HEALTH			# Player health
 @onready var health_bar: ProgressBar = $"../HUD/PlayerHealth"
@@ -146,6 +146,9 @@ func _on_ammo_changed(current: int, reserve: int, reloading: bool) -> void:
 		ammo_label.text = "No ammo"
 	else:
 		ammo_label.text = "%d / %d" % [current, reserve]
+
+func play_ammo_pickup_sound() -> void:
+	$AmmoPickupSound.play(0.2)
 	
 func take_damage(amount:int) -> void:
 	health -= amount

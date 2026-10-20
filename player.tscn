@@ -1,4 +1,4 @@
-[gd_scene load_steps=186 format=3 uid="uid://chbcbiqrmd0bp"]
+[gd_scene load_steps=187 format=3 uid="uid://chbcbiqrmd0bp"]
 
 [ext_resource type="Script" uid="uid://3o8567f7bjm" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dnm6ywjhn7phd" path="res://ASSET/player_DodgeDown.png" id="2_606se"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cvk6dxxqoe51w" path="res://ASSET/player_RightIdle.png" id="13_right_idle"]
 [ext_resource type="Texture2D" uid="uid://bft6hrq1qm0cd" path="res://ASSET/player_UpIdle.png" id="14_up_idle"]
 [ext_resource type="PackedScene" uid="uid://bhahq6mu8fe54" path="res://shotgun.tscn" id="18_q13i1"]
+[ext_resource type="AudioStream" uid="uid://5a407f6brx" path="res://Audio/ammo_pickup.mp3" id="19_ammo_pickup"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
 atlas = ExtResource("2_606se")
@@ -1326,6 +1327,9 @@ one_shot = true
 position = Vector2(16, 3)
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
+
+[node name="AmmoPickupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_ammo_pickup")
 
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="timeout" from="DodgeInterval" to="." method="_on_dodge_interval_timeout"]
