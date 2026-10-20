@@ -22,6 +22,7 @@ var health:int = MAX_HEALTH			# Player health
 @onready var health_bar: ProgressBar = $"../HUD/PlayerHealth"
 @onready var weapon_pivot:Marker2D = $WeaponPivot
 @onready var gun = $Shotgun
+@onready var main_game: Node = get_parent()
 var can_dodge:bool = true 			# Whether player can dodge 
 var is_dodging:bool = false 		# Whether the player is dodging 
 var velocity:Vector2 = Vector2.ZERO # Velocity vector of player 
@@ -35,12 +36,16 @@ func get_idle_animation(aim_direction:Vector2) -> String:
 		return "idle_right" if aim_direction.x > 0.0 else "idle_left"
 	return "idle_down" if aim_direction.y > 0.0 else "idle_up"
 
+signal on_damage(damage: int, new_health: int, old_health: int)
+signal on_death
+
 # Places the player at a given starting position 
 # pos -> starting position given as vector 
 func start(pos:Vector2): 
 	position = pos 
 	show() 
 	$CollisionShape2D.disabled = false 
+	main_game.on_game_start.connect(on_game_start)
 
 # Keeps the player dodging for a certain amount of time 
 func _on_dodge_timer_timeout() -> void: 
@@ -65,6 +70,9 @@ func _ready() -> void:
 	gun.emit_ammo()
 
 func _process(delta: float) -> void: 
+	if !main_game.is_active:
+		return
+		
 	# Recover if the one-shot timer stopped without its timeout handler running.
 	if is_dodging and $DodgeTimer.is_stopped():
 		_on_dodge_timer_timeout()
@@ -151,14 +159,31 @@ func play_ammo_pickup_sound() -> void:
 	$AmmoPickupSound.play(0.2)
 	
 func take_damage(amount:int) -> void:
-	health -= amount
+	if !main_game.is_active:
+		return
+	var old_health = health
+	health = clamp(health - amount, 0, MAX_HEALTH)
 	health_bar.value = health
+	on_damage.emit(amount, health, old_health)
 	if health <= 0:
 		die()
 			
 
 func die() ->void:
-	queue_free()
+	visible = false
+	on_death.emit()
+	
+func reset_player() -> void:
+	visible = true
+	health = MAX_HEALTH
+	health_bar.max_value = MAX_HEALTH
+	health_bar.value = health
+	can_dodge = true
+	is_dodging = false
+	
+func on_game_start() -> void:
+	reset_player()
+	
 	
 	
 	

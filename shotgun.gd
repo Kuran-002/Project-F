@@ -2,6 +2,8 @@ extends Area2D
 @export var Bullet: PackedScene
 @export var Shell: PackedScene
 
+@onready var main_game: Node = get_parent().get_parent()
+
 signal ammo_changed(current: int, reserve: int, reloading: bool)
 const MAX_AMMO = 2				# Shells the gun holds
 const RELOAD_TIME:float = 1.5	# Seconds a reload takes
@@ -72,9 +74,13 @@ func _on_reload_finished() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# Game is not active. Don't shoot
+	if !main_game.is_active:
+		return
+		
+	# Attempts to shoot. Won't shoot if out of ammo
 	if is_reloading():
 		return
-	# Attempts to shoot. Won't shoot if out of ammo 
 	if (Input.is_action_just_pressed("shoot") and curr_ammo > 0): 
 		shoot() 
 	if Input.is_action_just_pressed("reload") and curr_ammo < MAX_AMMO and reserve_ammo > 0:
