@@ -34,10 +34,10 @@ func start() -> void:
 			side_attack(PI/6)
 	)
 
-	rhythm.beats(1, true, 76).connect(func(i):
-		if i < 3: 
-			sweep_attack(true)
-	)
+#	rhythm.beats(1, true, 76).connect(func(i):
+#		if i < 3: 
+#			sweep_attack(true)
+#	)
 
 func _ready() -> void:
 	add_to_group("enemy")    
