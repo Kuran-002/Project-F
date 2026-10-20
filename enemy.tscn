@@ -22,8 +22,8 @@ shape = SubResource("CapsuleShape2D_enemy")
 
 [node name="RhythmNotifier" type="Node" parent="." unique_id=317600369 node_paths=PackedStringArray("audio_stream_player")]
 script = ExtResource("3_qi2p4")
-bpm = 120.0
-beat_length = 0.5
+bpm = 115.0
+beat_length = 0.5217391304347826
 audio_stream_player = NodePath("../Music")
 metadata/_custom_type_script = "uid://dos3qhffr4v0a"
 

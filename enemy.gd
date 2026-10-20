@@ -20,24 +20,84 @@ var rng = RandomNumberGenerator.new()
 func start() -> void: 
 	# Start music on start
 	rhythm.audio_stream_player.play() 
-	rhythm.beats(1).connect(func(i): print(i))
+	sync() 
 
-	rhythm.beats(1, true, 8).connect(func(i): 
-		if (i % 8 < 3  
-		): 
-			random_attack(PI/6) 
-	)
-
-	rhythm.beats(0.5, true, 11).connect(func(i): 
-		if (
-			(i % (11 + 5) < 2 || (i % (11 + 5) >=3 && i % (11 + 5) <= 4))): 
-			side_attack(PI/6)
-	)
+	# 4/4 -> Each Bar is 4 Beats
+	# Bars 5-12 | 0:08 - 0:25
+	# Bars 13-20 | 0:25 - 0:41 
+	# Bars 21-28 | 0:41 - 0:58 
+	# Bars 29-36 | 0:58 - 1:15 
+	# Bars 37-44 | 1:15 - 1:31 
+	# Bars 45-52 | 1:31 - 1:48 
+	# Bars 53-60 | 1:48 - 2:04 
 
 #	rhythm.beats(1, true, 76).connect(func(i):
 #		if i < 3: 
 #			sweep_attack(true)
 #	)
+
+var loop_at:float = 60 
+var pos:float = 0 
+
+# Attempts to sync actions to music 
+func sync() -> void: 
+	var cone = PI/10
+	var r = rhythm
+	r.audio_stream_player.seek(pos)
+	# 4/4 -> Each Bar is 4 Beats
+	# Bars 1-4 | 0:00 - 0:08
+	r.beats(1, true, 7).connect(func(i): 
+		if (i % 8 < 3 && r.current_position < 8): 
+			attack(cone)) 
+	# Bars 5-12 | 0:08 - 0:25
+	r.beats(1, true, 15).connect(func(i): 
+		if (i % 8 < 3 && r.current_position <= 23): 
+			attack(cone)) 
+	r.beats(0.5, true, 42).connect(func(i): 
+		if (i < 2 || (i > 4 && i < 7)): 
+			side_attack(PI/6))
+	# Bars 13-20 | 0:25 - 0:41 
+	r.beats(0.5, true, 49).connect(func(i): 
+		if (i < 3 || (i > 5 && i < 8)): 
+			side_attack(PI/6))
+	r.beats(1, true, 54).connect(func(i): 
+		if (i < 3): 
+			attack(cone)) 
+	r.beats(0.25, true, 61.5).connect(func(i): 
+		if (i < 3 || (i > 9 && i < 13)
+			|| (i > 24 && i < 32)): 
+			side_attack(PI/6)) 
+	r.beats(1, true, 72.5).connect(func(i): 
+		if (i == 1): 
+			sweep_attack(false)
+		elif (i < 3): 
+			sweep_attack(true))
+	r.beats(0.5, true, 76).connect(func(i): 
+		if (i < 4 && r.current_position <= 40): 
+			random_attack(cone))
+	# Bars 21-28 | 0:41 - 0:58 
+	r.beats(0.25, true, 78).connect(func(i): 
+		if (i < 3 || (i > 7 && i < 9) || (i > 12 && i < 15)): 
+			side_attack(PI/8))
+	r.beats(0.25, true, 84).connect(func(i):
+		if (i < 5): 
+			random_attack(cone))
+	r.beats(0.25, true, 87).connect(func(i): 
+		if (i < 5): 
+			side_attack(PI/6))
+	r.beats(0.25, true, 90).connect(func(i): 
+		if (i < 5): 
+			random_attack(cone))
+	r.beats(0.25, true, 93).connect(func(i): 
+		if (i < 5): 
+			random_attack(cone))
+	r.beats(0.5, true, 105).connect(func(i): 
+		if (i < 2): 
+			sweep_attack(true))
+	# Bars 29-36 | 0:58 - 1:15 
+	# Bars 37-44 | 1:15 - 1:31 
+	# Bars 45-52 | 1:31 - 1:48 
+	# Bars 53-60 | 1:48 - 2:04 
 
 func _ready() -> void:
 	add_to_group("enemy")    
@@ -59,6 +119,8 @@ func _process(_delta: float) -> void:
 	$Sprite2D.texture = textures[index]
 	# Throw attack in direction of angle
 	$WeaponPivot.global_rotation = angle 
+	if (rhythm.current_position > loop_at): 
+		rhythm.audio_stream_player.seek(pos)
 
 
 func take_damage(amaount:int) -> void:
@@ -70,7 +132,7 @@ func take_damage(amaount:int) -> void:
 # Sweeping attack from left to right or right to left
 func sweep_attack(clockwise:bool) -> void: 
 	var angle:float = 0.0 
-	var divisions:int = 10 
+	var divisions:int = 5 
 	var offset:float = (PI / divisions)
 	divisions += 1 
 	if (!clockwise): 
