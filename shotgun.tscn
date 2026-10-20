@@ -1,17 +1,49 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhahq6mu8fe54"]
+[gd_scene load_steps=22 format=3 uid="uid://bhahq6mu8fe54"]
 
 [ext_resource type="Script" uid="uid://dwsoaouijhohu" path="res://shotgun.gd" id="1_hn68x"]
 [ext_resource type="PackedScene" uid="uid://ca0r41jqirdjm" path="res://bullet.tscn" id="2_5bb75"]
 [ext_resource type="Texture2D" uid="uid://dtji1p81fi3io" path="res://ASSET/Shotgun.png" id="3_gda1h"]
-[ext_resource type="Texture2D" uid="uid://dt1xeodhbs1hu" path="res://placeholders/reload_placeholder.png" id="4_reload"]
+[ext_resource type="Texture2D" uid="uid://djhidfy5aati6" path="res://ASSET/Shotgun_reload.png" id="5_6cxpq"]
 [ext_resource type="Texture2D" uid="uid://hbt5k1flsk8t" path="res://ASSET/Shotfin_shoot.png" id="5_gda1h"]
-[ext_resource type="PackedScene" path="res://shell.tscn" id="6_shell"]
+[ext_resource type="PackedScene" uid="uid://cfyui6i156pjo" path="res://shell.tscn" id="6_shell"]
 [ext_resource type="AudioStream" uid="uid://pnxdx7qtnc5l" path="res://Audio/Shotgun_shoot.mp3" id="7_shoot"]
 [ext_resource type="AudioStream" uid="uid://cck4ny4yvnmn0" path="res://Audio/Shotgun_reload.mp3" id="8_reload"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvfgu"]
 atlas = ExtResource("3_gda1h")
 region = Rect2(0, 15, 34, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uokoq"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcio6"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3s4e"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vmvs"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2us2"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(160, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s78sc"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(200, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay5ys"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(240, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4u3q"]
+atlas = ExtResource("5_6cxpq")
+region = Rect2(280, 0, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iy6yh"]
 atlas = ExtResource("5_gda1h")
@@ -33,7 +65,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_reload")
+"texture": SubResource("AtlasTexture_uokoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dcio6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3s4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vmvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2us2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s78sc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ay5ys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4u3q")
 }],
 "loop": true,
 "name": &"reload",
@@ -62,10 +115,8 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_knsld")
-animation = &"shoot"
+animation = &"reload"
 autoplay = "shoot"
-frame = 1
-frame_progress = 1.0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

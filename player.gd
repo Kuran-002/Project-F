@@ -146,6 +146,9 @@ func _on_ammo_changed(current: int, reserve: int, reloading: bool) -> void:
 		ammo_label.text = "No ammo"
 	else:
 		ammo_label.text = "%d / %d" % [current, reserve]
+
+func play_ammo_pickup_sound() -> void:
+	$AmmoPickupSound.play(0.2)
 	
 func take_damage(amount:int) -> void:
 	health -= amount
