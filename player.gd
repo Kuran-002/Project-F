@@ -25,6 +25,7 @@ var health:int = MAX_HEALTH			# Player health
 var can_dodge:bool = true 			# Whether player can dodge 
 var is_dodging:bool = false 		# Whether the player is dodging 
 var velocity:Vector2 = Vector2.ZERO # Velocity vector of player 
+@onready var ammo_label: Label = $"../HUD/AmmoLabel"
 
 func is_moving_backwards(aim_direction:Vector2) -> bool:
 	return velocity.length_squared() > 0.0 and velocity.normalized().dot(aim_direction) < 0.0
@@ -60,6 +61,8 @@ func _ready() -> void:
 	start(Vector2(320, 270)) # DO NOT TOUCH 
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
+	gun.ammo_changed.connect(_on_ammo_changed)
+	gun.emit_ammo()
 
 func _process(delta: float) -> void: 
 	# Recover if the one-shot timer stopped without its timeout handler running.
@@ -135,6 +138,14 @@ func _process(delta: float) -> void:
 	# check player bounds 
 	position += velocity * delta 
 	position = position.clamp(Vector2.ZERO, screen_size) 
+	
+func _on_ammo_changed(current: int, reserve: int, reloading: bool) -> void:
+	if reloading:
+		ammo_label.text = "Reloading..."
+	elif current == 0 and reserve == 0:
+		ammo_label.text = "No ammo"
+	else:
+		ammo_label.text = "%d / %d" % [current, reserve]
 	
 func take_damage(amount:int) -> void:
 	health -= amount
