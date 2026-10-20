@@ -16,7 +16,7 @@ const DODGE_MULT:float = 2 		# Speed mult by dodge
 var screen_size:Vector2				# Bounds for player movement 
 
 const MAX_HEALTH:int = 500
-const GUN_OFFSET = 15
+const GUN_OFFSET = 10
 
 var health:int = MAX_HEALTH			# Player health
 @onready var health_bar: ProgressBar = $"../HUD/PlayerHealth"

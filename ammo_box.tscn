@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6jvgxp3o04nm"]
+
+[ext_resource type="Script" uid="uid://yykk35ag3ks2" path="res://ammo_box.gd" id="1_box"]
+[ext_resource type="Texture2D" uid="uid://bnrebl6k3n86j" path="res://icon.svg" id="2_icon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_box"]
+size = Vector2(12, 12)
+
+[node name="AmmoBox" type="Area2D" groups=["ammo_box"]]
+script = ExtResource("1_box")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_icon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_box")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

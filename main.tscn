@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://odlb6t7odq8q"]
+[gd_scene load_steps=5 format=3 uid="uid://odlb6t7odq8q"]
 
 [ext_resource type="PackedScene" uid="uid://chbcbiqrmd0bp" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bx1wg1x1mv3su" path="res://enemy.tscn" id="2_enemy"]
+[ext_resource type="Script" path="res://main.gd" id="3_main"]
+[ext_resource type="PackedScene" path="res://ammo_box.tscn" id="4_box"]
 
 [node name="Main" type="Node"]
+script = ExtResource("3_main")
+ammo_box_scene = ExtResource("4_box")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfyui6i156pjo"]
+
+[ext_resource type="Script" uid="uid://cwc62iit715qm" path="res://shell.gd" id="1_shell"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shell"]
+radius = 4.0
+
+[node name="Shell" type="Area2D"]
+z_index = -1
+script = ExtResource("1_shell")
+
+[node name="Body" type="Polygon2D" parent="."]
+scale = Vector2(0.755, 0.755)
+color = Color(0.6627451, 0.14901961, 0.101960786, 1)
+polygon = PackedVector2Array(-3, -1.5, 3, -1.5, 3, 1.5, -3, 1.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_shell")
