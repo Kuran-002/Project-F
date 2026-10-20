@@ -3,6 +3,7 @@ extends Area2D
 const MAX_HEALTH:int = 500
 var health:int = MAX_HEALTH
 @onready var health_bar: ProgressBar = $"../HUD/EnemyHealth"
+var hit_flash_tween: Tween
 
 var target:Node2D
 
@@ -28,6 +29,13 @@ func take_damage(amaount:int) -> void:
 	health_bar.value = health
 	if health <= 0:
 		die()
+	else:
+		if hit_flash_tween and hit_flash_tween.is_running():
+			hit_flash_tween.kill()
+		$AnimatedSprite2D.modulate = Color.WHITE
+		hit_flash_tween = create_tween()
+		hit_flash_tween.tween_property($AnimatedSprite2D, "modulate", Color(1.4, 1.4, 1.4), 0.04)
+		hit_flash_tween.tween_property($AnimatedSprite2D, "modulate", Color.WHITE, 0.12)
 		
 func die() -> void:
 	queue_free()

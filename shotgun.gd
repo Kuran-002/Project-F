@@ -37,19 +37,13 @@ func emit_ammo() -> void:
 
 func shoot() -> void: 
 	$AnimatedSprite2D.animation = "idle" 
-	var b = Bullet.instantiate()
-	var offset = -10
 	curr_ammo -= 1
 	emit_ammo()
-	get_tree().current_scene.add_child(b) 
-	b.global_transform = $Muzzle.global_transform 
-	b.global_rotation_degrees += offset
-	for i in range(4): 
-		offset += 4 
-		b = Bullet.instantiate()
+	for i in range(3):
+		var b = Bullet.instantiate()
 		get_tree().current_scene.add_child(b) 
 		b.global_transform = $Muzzle.global_transform 
-		b.global_rotation_degrees += offset
+		b.global_rotation_degrees += (i - 1) * 3
 	$AnimatedSprite2D.play("shoot")
 	$ShootSound.play()
 	
