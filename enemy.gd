@@ -3,108 +3,75 @@ extends Area2D
 const MAX_HEALTH:int = 500
 var health:int = MAX_HEALTH
 @onready var health_bar: ProgressBar = $"../HUD/EnemyHealth"
-@onready var rhythm: RhythmNotifier = $RhythmNotifier
 @export var Wave: PackedScene
+@onready var Music:AudioStreamPlayer = $Music
+
+signal beat
 
 # Sprite names indexed by the 8 directions, starting at "right" going clockwise (screen y is down).
 const DIRECTION_NAMES:Array[String] = [
 	"right", "down_right", "down", "down_left", "left", "up_left", "up", "up_right"]
 
-# Constants for music sync 
-const LEAD_IN = 14 
+const BPM:float = 115.0
+const SEC_IN_MIN:float = 60.0
 
 var textures:Array[Texture2D] = []
 var target:Node2D
+
+# Boss Attack Variables
 var rng = RandomNumberGenerator.new() 
+var time:float = 0.0 
+var beat_count:int = 0 
+var action_count:int = 0
+var timings = [0,1, 2, 5, 6]
+var next_timing:int = timings[action_count] 
+#var actions = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 func start() -> void: 
-	# Start music on start
-	rhythm.audio_stream_player.play() 
-	sync() 
+	Music.play() 
+	Music.seek(start_at * SEC_IN_MIN * BPM)
 
-	# 4/4 -> Each Bar is 4 Beats
-	# Bars 5-12 | 0:08 - 0:25
-	# Bars 13-20 | 0:25 - 0:41 
-	# Bars 21-28 | 0:41 - 0:58 
-	# Bars 29-36 | 0:58 - 1:15 
-	# Bars 37-44 | 1:15 - 1:31 
-	# Bars 45-52 | 1:31 - 1:48 
-	# Bars 53-60 | 1:48 - 2:04 
+var loop_at:float  = 7  # in beats
+var start_at:float = 0
+var loop_action:int = 0
 
-#	rhythm.beats(1, true, 76).connect(func(i):
-#		if i < 3: 
-#			sweep_attack(true)
-#	)
+const OFFSET = 0.45
 
-var loop_at:float = 60 
-var pos:float = 0 
+func beat_counter() -> void: 
+	time = Music.get_playback_position() + AudioServer.get_time_since_last_mix()
+	time -= AudioServer.get_output_latency()
+	time += OFFSET
+	var curr_beat:int = floor((time / SEC_IN_MIN) * BPM)
+	# Emit signal if beat is updated
+	if (curr_beat > beat_count): 
+		beat_count = curr_beat
+		beat.emit() 
 
-# Attempts to sync actions to music 
-func sync() -> void: 
-	var cone = PI/10
-	var r = rhythm
-	r.audio_stream_player.seek(pos)
-	# 4/4 -> Each Bar is 4 Beats
-	# Bars 1-4 | 0:00 - 0:08
-	r.beats(1, true, 7).connect(func(i): 
-		if (i % 8 < 3 && r.current_position < 8): 
-			attack(cone)) 
-	# Bars 5-12 | 0:08 - 0:25
-	r.beats(1, true, 15).connect(func(i): 
-		if (i % 8 < 3 && r.current_position <= 23): 
-			attack(cone)) 
-	r.beats(0.5, true, 42).connect(func(i): 
-		if (i < 2 || (i > 4 && i < 7)): 
-			side_attack(PI/6))
-	# Bars 13-20 | 0:25 - 0:41 
-	r.beats(0.5, true, 49).connect(func(i): 
-		if (i < 3 || (i > 5 && i < 8)): 
-			side_attack(PI/6))
-	r.beats(1, true, 54).connect(func(i): 
-		if (i < 3): 
-			attack(cone)) 
-	r.beats(0.25, true, 61.5).connect(func(i): 
-		if (i < 3 || (i > 9 && i < 13)
-			|| (i > 24 && i < 32)): 
-			side_attack(PI/6)) 
-	r.beats(1, true, 72.5).connect(func(i): 
-		if (i == 1): 
+func _on_beat() -> void: 
+	#var next_action = actions[action_count] 
+	if (beat_count >= next_timing): 
+		if (action_count < timings.size()): 
+			action_count += 1 
+			if (action_count < timings.size()): 
+				next_timing = timings[action_count]
+			handle_action(1)
+	
+func handle_action(action:int) -> void: 
+	match action: 
+		1: 
+			random_attack(PI/8)	
+		2: 
+			side_attack(PI/6)
+		3: 
+			sweep_attack(true)
+		4: 
 			sweep_attack(false)
-		elif (i < 3): 
-			sweep_attack(true))
-	r.beats(0.5, true, 76).connect(func(i): 
-		if (i < 4 && r.current_position <= 40): 
-			random_attack(cone))
-	# Bars 21-28 | 0:41 - 0:58 
-	r.beats(0.25, true, 78).connect(func(i): 
-		if (i < 3 || (i > 7 && i < 9) || (i > 12 && i < 15)): 
-			side_attack(PI/8))
-	r.beats(0.25, true, 84).connect(func(i):
-		if (i < 5): 
-			random_attack(cone))
-	r.beats(0.25, true, 87).connect(func(i): 
-		if (i < 5): 
-			side_attack(PI/6))
-	r.beats(0.25, true, 90).connect(func(i): 
-		if (i < 5): 
-			random_attack(cone))
-	r.beats(0.25, true, 93).connect(func(i): 
-		if (i < 5): 
-			random_attack(cone))
-	r.beats(0.5, true, 105).connect(func(i): 
-		if (i < 2): 
-			sweep_attack(true))
-	# Bars 29-36 | 0:58 - 1:15 
-	# Bars 37-44 | 1:15 - 1:31 
-	# Bars 45-52 | 1:31 - 1:48 
-	# Bars 53-60 | 1:48 - 2:04 
 
 func _ready() -> void:
 	add_to_group("enemy")    
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
 	start() 
-
 	
 	for name in DIRECTION_NAMES:
 		textures.append(load("res://placeholders/%s.svg" % name))
@@ -119,8 +86,16 @@ func _process(_delta: float) -> void:
 	$Sprite2D.texture = textures[index]
 	# Throw attack in direction of angle
 	$WeaponPivot.global_rotation = angle 
-	if (rhythm.current_position > loop_at): 
-		rhythm.audio_stream_player.seek(pos)
+
+	# Get accurate time in song
+	beat_counter()
+
+	# Loop for debugging
+	if (beat_count > loop_at): 
+		Music.seek(start_at * SEC_IN_MIN * BPM)
+		beat_count = start_at
+		action_count = loop_action 
+		next_timing = timings[start_at]
 
 
 func take_damage(amaount:int) -> void:

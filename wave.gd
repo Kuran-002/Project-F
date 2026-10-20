@@ -1,7 +1,7 @@
 extends Area2D
 
 const SPEED:float = 200 		# Speed of the bullet 
-const DMG:float = 250 			# Damage of bullet
+const DMG:float = 0 			# Damage of bullet
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

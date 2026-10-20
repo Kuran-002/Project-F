@@ -32,3 +32,5 @@ stream = ExtResource("4_iifgy")
 
 [node name="WeaponPivot" type="Marker2D" parent="." unique_id=214316117]
 position = Vector2(0, 30)
+
+[connection signal="beat" from="." to="." method="_on_beat"]
