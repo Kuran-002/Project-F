@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED:float = 400 		# Speed of the bullet 
+const SPEED:float = 200 		# Speed of the bullet 
 const DMG:float = 0 			# Damage of bullet
 
 # Called when the node enters the scene tree for the first time.
@@ -13,9 +13,7 @@ func _process(delta: float) -> void:
 	position += transform.x * SPEED * delta 
 	
 func _on_area_entered(area: Area2D) -> void:
-	print("hit something")
 	if area.is_in_group("player"):
-		print("player_hit")
 		area.call("take_damage", DMG)
 		queue_free()
 

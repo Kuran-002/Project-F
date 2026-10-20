@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ben2wpggcfb7e"]
+
+[ext_resource type="Script" uid="uid://dos3qhffr4v0a" path="res://rhythm_notifier-6a45663809d9d6e8bfeaad0000fd19344d2dfbfe/addons/rhythm_notifier/rhythm_notifier.gd" id="1_mdir1"]
+[ext_resource type="Script" uid="uid://dwdo17fpopjbf" path="res://sync_helper.gd" id="1_yfjx5"]
+[ext_resource type="AudioStream" uid="uid://b2trfrpm100y6" path="res://AUDIO/13 - Bad.mp3" id="2_yfjx5"]
+
+[node name="SyncHelper" type="Node" unique_id=1475152027 node_paths=PackedStringArray("r")]
+script = ExtResource("1_yfjx5")
+r = NodePath("RhythmNotifier")
+
+[node name="RhythmNotifier" type="Node" parent="." unique_id=949160988 node_paths=PackedStringArray("audio_stream_player")]
+script = ExtResource("1_mdir1")
+bpm = 120.0
+beat_length = 0.5
+audio_stream_player = NodePath("../AudioStreamPlayer")
+metadata/_custom_type_script = "uid://dos3qhffr4v0a"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=353255679]
+stream = ExtResource("2_yfjx5")

@@ -10,6 +10,9 @@ var health:int = MAX_HEALTH
 const DIRECTION_NAMES:Array[String] = [
 	"right", "down_right", "down", "down_left", "left", "up_left", "up", "up_right"]
 
+# Constants for music sync 
+const LEAD_IN = 14 
+
 var textures:Array[Texture2D] = []
 var target:Node2D
 var rng = RandomNumberGenerator.new() 
@@ -17,9 +20,24 @@ var rng = RandomNumberGenerator.new()
 func start() -> void: 
 	# Start music on start
 	rhythm.audio_stream_player.play() 
-	rhythm.beats(4).connect(func(i): random_attack(PI / 4)) 
-	rhythm.beats(8).connect(func(i): sweep_attack(true))
-	rhythm.beats(5).connect(func(i): side_attack(PI/6))
+	rhythm.beats(1).connect(func(i): print(i))
+
+	rhythm.beats(1, true, 8).connect(func(i): 
+		if (i % 8 < 3  
+		): 
+			random_attack(PI/6) 
+	)
+
+	rhythm.beats(0.5, true, 11).connect(func(i): 
+		if (
+			(i % (11 + 5) < 2 || (i % (11 + 5) >=3 && i % (11 + 5) <= 4))): 
+			side_attack(PI/6)
+	)
+
+	rhythm.beats(1, true, 76).connect(func(i):
+		if i < 3: 
+			sweep_attack(true)
+	)
 
 func _ready() -> void:
 	add_to_group("enemy")    
@@ -39,7 +57,6 @@ func _process(_delta: float) -> void:
 	var angle:float = (target.global_position - global_position).angle()
 	var index:int = posmod(roundi(angle / (PI / 4.0)), 8)
 	$Sprite2D.texture = textures[index]
-
 	# Throw attack in direction of angle
 	$WeaponPivot.global_rotation = angle 
 
