@@ -32,7 +32,7 @@ var actions = [1, 1, 1, 2,
 var next_timing:int = timings[action_count] 
 var next_action:int = actions[action_count]
 
-var loop_at:float  = 100000  # in beats
+var loop_at:float  = 22  # in beats
 var start_at:float = 0
 var loop_action:int = 0
 
@@ -76,6 +76,7 @@ func _ready() -> void:
 	health_bar.value = health
 	main_game.on_game_start.connect(on_game_start)
 	Music.play() 
+	Music.seek(start_at * SEC_IN_MIN * BPM)
 
 func _process(_delta: float) -> void:
 	if target == null or !is_instance_valid(target):
@@ -90,12 +91,12 @@ func _process(_delta: float) -> void:
 	# Get accurate time in song
 	beat_counter()
 
-	# Loop for debugging
-	#if (beat_count > loop_at && false): 
-		#Music.seek(start_at * SEC_IN_MIN * BPM)
-		#beat_count = start_at
-		#action_count = loop_action 
-		#next_timing = timings[start_at]
+	#Loop for debugging
+	if (beat_count > loop_at): 
+		Music.seek(start_at * SEC_IN_MIN * BPM)
+		beat_count = start_at
+		action_count = loop_action 
+		next_timing = timings[start_at]
 
 	var to_target:Vector2 = target.global_position - global_position
 	# No back-facing sprite yet, so "front" is used whenever the player is above or below
