@@ -52,7 +52,7 @@ var timings = [8, 9, 10, 11, 12,
 				200, 201, 202, 203, 208,
 				209, 210, 212, 213, 215,
 				216, 217, 218, 220, 221,
-				222] # 129
+				222, 0] # 129
 var actions = [1, 1, 1, 2, 2, 
 				1, 2, 1, 1, 2, 
 				2, 2, 1, 1, 1, 
@@ -80,7 +80,7 @@ var actions = [1, 1, 1, 2, 2,
 				2, 2, 1, 2, 2,
 				2, 2, 2, 2, 4,
 				1, 1, 1, 1, 1,
-				1] 
+				1, 0] 
 var next_timing:int = timings[action_count] 
 var next_action:int = actions[action_count]
 
@@ -102,13 +102,11 @@ func beat_counter() -> void:
 		beat.emit() 
 
 func _on_beat() -> void: 
-	if (beat_count == next_timing): 
+	if (beat_count >= next_timing && action_count < actions.size() - 1): 
 		handle_action(next_action)
 		action_count += 1
-		if (action_count < actions.size()):
-			next_action = actions[action_count]
-			next_timing = timings[action_count]
-
+		next_action = actions[action_count]
+		next_timing = timings[action_count]
 	
 func handle_action(action:int) -> void: 
 	match action: 
