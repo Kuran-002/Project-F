@@ -63,7 +63,7 @@ var next_action:int = actions[action_count]
 const DEBUG:bool = false 
 var start_at:int = 104 + 16
 var loop_at:int  = start_at + 16  # in beats
-var loop_action:int = 70  
+var loop_action:int = timings.size() - 10
 
 const OFFSET = 0.50
 
