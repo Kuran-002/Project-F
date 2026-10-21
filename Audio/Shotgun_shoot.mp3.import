@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://pnxdx7qtnc5l"
-path="res://.godot/imported/Shotgun_shoot.mp3-262fd509e5fd614caf3dc7a031ee6a02.mp3str"
+path="res://.godot/imported/Shotgun_shoot.mp3-cbb90c18331b5378fd818ecf5360151e.mp3str"
 
 [deps]
 
-source_file="res://Audio/Shotgun_shoot.mp3"
-dest_files=["res://.godot/imported/Shotgun_shoot.mp3-262fd509e5fd614caf3dc7a031ee6a02.mp3str"]
+source_file="res://AUDIO/Shotgun_shoot.mp3"
+dest_files=["res://.godot/imported/Shotgun_shoot.mp3-cbb90c18331b5378fd818ecf5360151e.mp3str"]
 
 [params]
 

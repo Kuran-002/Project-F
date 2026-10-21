@@ -10,8 +10,8 @@ const DIRECTIONS:Array[Array] = [
 ["up", "idle", "down"], 
 ["up_right", "right", "down_right"]] 
 
-const MOVE_SPEED:float = 170.0		# Move speed of player (px/s) 
-const DODGE_MULT:float = 2 		# Speed mult by dodge 
+const MOVE_SPEED:float = 150.0		# Move speed of player (px/s) 
+const DODGE_SPEED:float = 300 		# Speed mult by dodge 
 
 var screen_size:Vector2				# Bounds for player movement 
 
@@ -66,6 +66,7 @@ func _ready() -> void:
 	start(Vector2(320, 270)) # DO NOT TOUCH 
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
+	$CollisionShape2D.disabled = false 
 	gun.ammo_changed.connect(_on_ammo_changed)
 	gun.emit_ammo()
 
@@ -131,6 +132,9 @@ func _process(delta: float) -> void:
 	# Start dodge once per key press so holding the key cannot chain dodges.
 	if Input.is_action_just_pressed("dodge") and can_dodge and !is_dodging:
 		$DodgeTimer.start() 
+		if ("idle" in $AnimatedSprite2D.animation): 
+			$AnimatedSprite2D.animation = $AnimatedSprite2D.animation.substr(5) 
+			velocity = mouse_direction.normalized() * MOVE_SPEED
 		is_dodging = true 
 		can_dodge = false 
 		$CollisionShape2D.disabled = true 
@@ -138,7 +142,7 @@ func _process(delta: float) -> void:
 		if is_moving_backwards(mouse_direction):
 			$AnimatedSprite2D.play_backwards()
 	if(is_dodging): 
-		velocity *= DODGE_MULT 
+		velocity = velocity.normalized() * DODGE_SPEED
 
 	$AnimatedSprite2D.speed_scale = -1.0 if is_moving_backwards(mouse_direction) else 1.0
 	$AnimatedSprite2D.play()
