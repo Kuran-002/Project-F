@@ -16,7 +16,7 @@ const DODGE_MULT:float = 2 		# Speed mult by dodge
 var screen_size:Vector2				# Bounds for player movement 
 
 const MAX_HEALTH:int = 500
-const GUN_OFFSET = 15
+const GUN_OFFSET = 10
 
 var health:int = MAX_HEALTH			# Player health
 @onready var health_bar: ProgressBar = $"../HUD/PlayerHealth"
@@ -26,6 +26,15 @@ var health:int = MAX_HEALTH			# Player health
 var can_dodge:bool = true 			# Whether player can dodge 
 var is_dodging:bool = false 		# Whether the player is dodging 
 var velocity:Vector2 = Vector2.ZERO # Velocity vector of player 
+@onready var ammo_label: Label = $"../HUD/AmmoLabel"
+
+func is_moving_backwards(aim_direction:Vector2) -> bool:
+	return velocity.length_squared() > 0.0 and velocity.normalized().dot(aim_direction) < 0.0
+
+func get_idle_animation(aim_direction:Vector2) -> String:
+	if abs(aim_direction.x) > abs(aim_direction.y):
+		return "idle_right" if aim_direction.x > 0.0 else "idle_left"
+	return "idle_down" if aim_direction.y > 0.0 else "idle_up"
 
 signal on_damage(damage: int, new_health: int, old_health: int)
 signal on_death
@@ -54,9 +63,11 @@ func _on_dodge_interval_timeout() -> void:
 func _ready() -> void: 
 	add_to_group("player")
 	screen_size = get_viewport_rect().size 
-	start(Vector2(320, 270)) # TODO: REMOVE THIS
+	start(Vector2(320, 270)) # DO NOT TOUCH 
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
+	gun.ammo_changed.connect(_on_ammo_changed)
+	gun.emit_ammo()
 
 func _process(delta: float) -> void: 
 	if !main_game.is_active:
@@ -85,14 +96,37 @@ func _process(delta: float) -> void:
 			velocity.x -= 1
 		if Input.is_action_pressed("move_right"): 
 			velocity.x += 1
-		# Adjust sprite based on direction moving 
-		$AnimatedSprite2D.animation = DIRECTIONS[velocity.x + 1][velocity.y + 1]
+		# Sprite direction based on mouse direction 
+		var direction_x = 0 
+		var direction_y = 0 
+		if (mouse_direction.y > 0.2): 
+			direction_y += 1 
+		if (mouse_direction.y < -0.2): 
+			direction_y -= 1 
+		if (mouse_direction.x > 0.2): 
+			direction_x += 1 
+		if (mouse_direction.x < -0.2): 
+			direction_x -= 1 
+		if velocity.length_squared() == 0.0:
+			$AnimatedSprite2D.animation = get_idle_animation(mouse_direction)
+		else:
+			$AnimatedSprite2D.animation = DIRECTIONS[direction_x + 1][direction_y + 1]
+
+	# Gun is in front of player when they are facing away 
+	gun.show_behind_parent = false 
+	if ($AnimatedSprite2D.animation == "up" || $AnimatedSprite2D.animation == "dodge_up" || $AnimatedSprite2D.animation == "idle_up"):
+		gun.show_behind_parent = true 
+
+	# Adjust sprite based on mouse direction 
+	#if ($AnimatedSprite2D.animation == "left" && mouse_direction.x > 0): 
+	#	$AnimatedSprite2D.animation = "right" 
+	#if ($AnimatedSprite2D.animation == "right" && mouse_direction.x < 0): 
+	#	$AnimatedSprite2D.animation = "left" 
 
 	# normalize and adjust velocity 
 	if (velocity.length() > 0): 
 		velocity = velocity.normalized() * MOVE_SPEED
 
-	$AnimatedSprite2D.play() 
 
 	# Start dodge once per key press so holding the key cannot chain dodges.
 	if Input.is_action_just_pressed("dodge") and can_dodge and !is_dodging:
@@ -101,12 +135,28 @@ func _process(delta: float) -> void:
 		can_dodge = false 
 		$CollisionShape2D.disabled = true 
 		$AnimatedSprite2D.animation = "dodge_" + $AnimatedSprite2D.animation
+		if is_moving_backwards(mouse_direction):
+			$AnimatedSprite2D.play_backwards()
 	if(is_dodging): 
 		velocity *= DODGE_MULT 
+
+	$AnimatedSprite2D.speed_scale = -1.0 if is_moving_backwards(mouse_direction) else 1.0
+	$AnimatedSprite2D.play()
 
 	# check player bounds 
 	position += velocity * delta 
 	position = position.clamp(Vector2.ZERO, screen_size) 
+	
+func _on_ammo_changed(current: int, reserve: int, reloading: bool) -> void:
+	if reloading:
+		ammo_label.text = "Reloading..."
+	elif current == 0 and reserve == 0:
+		ammo_label.text = "No ammo"
+	else:
+		ammo_label.text = "%d / %d" % [current, reserve]
+
+func play_ammo_pickup_sound() -> void:
+	$AmmoPickupSound.play(0.2)
 	
 func take_damage(amount:int) -> void:
 	if !main_game.is_active:
