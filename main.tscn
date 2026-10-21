@@ -1,40 +1,41 @@
-[gd_scene load_steps=7 format=3 uid="uid://odlb6t7odq8q"]
+[gd_scene format=3 uid="uid://odlb6t7odq8q"]
 
 [ext_resource type="Script" uid="uid://bhcfhmgxymt5o" path="res://levels/game/main_game.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://chbcbiqrmd0bp" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bx1wg1x1mv3su" path="res://enemy.tscn" id="2_enemy"]
-[ext_resource type="PackedScene" path="res://ammo_box.tscn" id="4_box"]
 [ext_resource type="Theme" uid="uid://csnkrwkh8euos" path="res://ASSET/theme/vaporwave_sunset.tres" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dehuo1g77qo64" path="res://ammo_box.tscn" id="4_box"]
 [ext_resource type="FontFile" uid="uid://cpmpva46rmy0l" path="res://ASSET/font/GravityRegular5.ttf" id="5_lquwl"]
 
 [node name="Main" type="Node" unique_id=39981920 node_paths=PackedStringArray("result_canvas", "result_screen", "title_label", "subtitle_label", "play_again_button", "main_menu_button")]
 script = ExtResource("1_h2yge")
-ammo_box_scene = ExtResource("4_box")
 result_canvas = NodePath("GameOverCanvas")
 result_screen = NodePath("GameOverCanvas/ResultScreen")
 title_label = NodePath("GameOverCanvas/ResultScreen/TitleLabel")
 subtitle_label = NodePath("GameOverCanvas/ResultScreen/SubtitleLabel")
 play_again_button = NodePath("GameOverCanvas/ResultScreen/VBoxContainer/PlayAgain")
 main_menu_button = NodePath("GameOverCanvas/ResultScreen/VBoxContainer/MainMenu")
+ammo_box_scene = ExtResource("4_box")
 
-[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="." unique_id=1038732279 instance=ExtResource("1_ig7tw")]
 
-[node name="Enemy" parent="." instance=ExtResource("2_enemy")]
+[node name="Enemy" parent="." unique_id=306834386 instance=ExtResource("2_enemy")]
 position = Vector2(330, 64)
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1915133533]
 
-[node name="PlayerHealth" type="ProgressBar" parent="HUD"]
+[node name="PlayerHealth" type="ProgressBar" parent="HUD" unique_id=1362587336]
 custom_minimum_size = Vector2(160, 16)
 offset_left = 16.0
 offset_top = 22.0
 offset_right = 176.0
 offset_bottom = 38.0
+scale = Vector2(0.9, 0.9)
 theme = ExtResource("4_1bvp3")
 value = 100.0
 show_percentage = false
 
-[node name="AmmoLabel" type="Label" parent="HUD"]
+[node name="AmmoLabel" type="Label" parent="HUD" unique_id=799315570]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -49,12 +50,13 @@ grow_vertical = 0
 text = "2 / 2"
 horizontal_alignment = 2
 
-[node name="EnemyHealth" type="ProgressBar" parent="HUD"]
+[node name="EnemyHealth" type="ProgressBar" parent="HUD" unique_id=657045251]
 custom_minimum_size = Vector2(520, 20)
 offset_left = 63.0
 offset_top = 316.0
 offset_right = 583.0
 offset_bottom = 336.0
+scale = Vector2(0.9, 0.9)
 theme = ExtResource("4_1bvp3")
 max_value = 500.0
 value = 500.0
