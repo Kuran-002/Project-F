@@ -385,7 +385,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlayPanel" unique_id=661819516]
+[node name="ScrollContainer" type="ScrollContainer" parent="HowToPlayPanel" unique_id=1355093785]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -393,20 +393,27 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -149.0
-offset_right = 200.0
-offset_bottom = 151.0
+offset_top = -140.25
+offset_right = 250.0
+offset_bottom = 139.75
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.825, 0.825)
 pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="MarginContainer" type="MarginContainer" parent="HowToPlayPanel/ScrollContainer" unique_id=479703355]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlayPanel/ScrollContainer/MarginContainer" unique_id=661819516]
+layout_mode = 2
+theme_override_constants/separation = 23
 alignment = 1
 
-[node name="Movement" type="Panel" parent="HowToPlayPanel/VBoxContainer" unique_id=1892192046]
+[node name="Movement" type="Panel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1892192046]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 2
 
-[node name="MovementWASD" type="Panel" parent="HowToPlayPanel/VBoxContainer/Movement" unique_id=91796882]
+[node name="MovementWASD" type="Panel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement" unique_id=91796882]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 9.0
@@ -415,7 +422,7 @@ offset_bottom = 159.0
 scale = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1kt5n")
 
-[node name="W" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=520909358]
+[node name="W" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementWASD" unique_id=520909358]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -430,7 +437,7 @@ text = "[font_size=25]W[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="A" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=214663531]
+[node name="A" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementWASD" unique_id=214663531]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -445,7 +452,7 @@ text = "[font_size=25]A[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="S" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=932763379]
+[node name="S" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementWASD" unique_id=932763379]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -464,7 +471,7 @@ text = "[font_size=25]S[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="D" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=1528713900]
+[node name="D" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementWASD" unique_id=1528713900]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -482,7 +489,7 @@ text = "[font_size=25]D[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MovementArrows" type="Panel" parent="HowToPlayPanel/VBoxContainer/Movement" unique_id=1996465289]
+[node name="MovementArrows" type="Panel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement" unique_id=1996465289]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 9.0
@@ -491,7 +498,7 @@ offset_bottom = 159.0
 scale = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1kt5n")
 
-[node name="Up" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=616045073]
+[node name="Up" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementArrows" unique_id=616045073]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -506,7 +513,7 @@ text = "[font_size=35]↑[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Left" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=201677599]
+[node name="Left" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementArrows" unique_id=201677599]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -521,7 +528,7 @@ text = "[font_size=35]←[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Down" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=1834387967]
+[node name="Down" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementArrows" unique_id=1834387967]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -540,7 +547,7 @@ text = "[font_size=35]↓[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Right" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=1052351405]
+[node name="Right" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement/MovementArrows" unique_id=1052351405]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -558,7 +565,7 @@ text = "[font_size=35]→[font_size]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement" unique_id=305680751]
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Movement" unique_id=305680751]
 layout_mode = 0
 offset_left = 260.0
 offset_top = 20.0
@@ -571,11 +578,11 @@ text = "Move"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Dodge" type="Panel" parent="HowToPlayPanel/VBoxContainer" unique_id=419365197]
+[node name="Dodge" type="Panel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer" unique_id=419365197]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 2
 
-[node name="DodgeKey" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Dodge" unique_id=998213038]
+[node name="DodgeKey" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Dodge" unique_id=998213038]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
@@ -587,7 +594,7 @@ text = "Space"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Dodge" unique_id=920159510]
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Dodge" unique_id=920159510]
 layout_mode = 0
 offset_left = 260.0
 offset_top = 20.0
@@ -599,11 +606,11 @@ text = "Dodge"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Attack" type="Panel" parent="HowToPlayPanel/VBoxContainer" unique_id=1298076413]
+[node name="Attack" type="Panel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1298076413]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Attack" unique_id=127000711]
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Attack" unique_id=127000711]
 layout_mode = 0
 offset_left = 260.0
 offset_top = 20.0
@@ -615,7 +622,7 @@ text = "Attack"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MouseLeftClickIcon" type="TextureRect" parent="HowToPlayPanel/VBoxContainer/Attack" unique_id=1408073518]
+[node name="MouseLeftClickIcon" type="TextureRect" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Attack" unique_id=1408073518]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -631,6 +638,35 @@ grow_vertical = 2
 scale = Vector2(0.065, 0.065)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("6_qhxwq")
+
+[node name="Reload" type="Panel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer" unique_id=439278327]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Reload" unique_id=855989818]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 20.0
+offset_right = 363.0
+offset_bottom = 60.0
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qpssh")
+bbcode_enabled = true
+text = "Reload"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReloadKey" type="RichTextLabel" parent="HowToPlayPanel/ScrollContainer/MarginContainer/VBoxContainer/Reload" unique_id=708498850]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 16.0
+offset_right = 120.0
+offset_bottom = 56.0
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "R"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CloseButton" type="Button" parent="HowToPlayPanel" unique_id=533858404]
 layout_mode = 1
