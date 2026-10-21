@@ -1,6 +1,6 @@
 extends Area2D
 
-const MAX_HEALTH:int = 2000
+const MAX_HEALTH:int = 1500
 var health:int = MAX_HEALTH
 @onready var health_bar: ProgressBar = $EnemyHealth
 @export var Wave: PackedScene

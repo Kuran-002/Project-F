@@ -47,6 +47,7 @@ func _ready() -> void:
 	player.on_death.connect(_on_player_death)
 	boss.on_damage.connect(_on_enemy_damaged)
 	boss.on_death.connect(_on_boss_death)
+	boss.Music.finished.connect(_on_music_finished)
 	play_again_button.pressed.connect(start_game)
 	main_menu_button.pressed.connect(on_main_menu)
 	ammo_spawn_timer = Timer.new()
@@ -146,5 +147,15 @@ func _on_boss_death() -> void:
 	on_game_end.emit(BOSS_DEATH)
 	# TODO: STOP MUSIC
 	is_active = false
+
+func _on_music_finished() -> void:
+	if !is_active or boss.health <= 0:
+		return
+	result_canvas.visible = true
+	result_screen.color = LOSE_COLOR
+	title_label.text = PLAYER_LOSE_TITLE
+	subtitle_label.text = MUSIC_OVER_MESSAGE
+	is_active = false
+	on_game_end.emit(MUSIC_OVER)
 	
 # TODO: End game when music is over
