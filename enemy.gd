@@ -1,8 +1,8 @@
 extends Area2D
 
-const MAX_HEALTH:int = 500
+const MAX_HEALTH:int = 2000
 var health:int = MAX_HEALTH
-@onready var health_bar: ProgressBar = $"../HUD/EnemyHealth"
+@onready var health_bar: ProgressBar = $EnemyHealth
 @export var Wave: PackedScene
 @onready var Music:AudioStreamPlayer = $Music
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D

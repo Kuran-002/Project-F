@@ -76,6 +76,16 @@ func _on_reload_finished() -> void:
 	reserve_ammo -= moved
 	emit_ammo()
 
+func reset_to_start() -> void:
+	reload_timer.stop()
+	$ShootSound.stop()
+	$ReloadSound.stop()
+	$AnimatedSprite2D.offset = Vector2.ZERO
+	$AnimatedSprite2D.play("idle")
+	curr_ammo = MAX_AMMO
+	reserve_ammo = START_RESERVE
+	emit_ammo()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# Game is not active. Don't shoot

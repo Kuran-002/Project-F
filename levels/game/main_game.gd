@@ -26,14 +26,17 @@ const LOSE_COLOR: Color = Color(1.0, 0.0, 0.0, 0.169)
 @export var main_menu_button: Button
 
 @export var ammo_box_scene: PackedScene
-const SPAWN_INTERVAL:float = 5.00	# Seconds between ammo box spawns
-const MAX_BOXES = 5					# Boxes allowed on the map at once
+const SPAWN_INTERVAL:float = 4.00	# Seconds between ammo box spawns
+const MAX_BOXES = 8					# Boxes allowed on the map at once
 const SPAWN_MARGIN:float = 3.00		# Keeps boxes away from the screen edge
 const BOX_SIZE:float = 12.0			# Matches the ammo box collision shape
+const SPAWN_RANGE_MIN:Vector2 = Vector2(80.0, 80.0)
+const SPAWN_RANGE_MAX:Vector2 = Vector2(560.0, 280.0)
 const ENEMY_CLEARANCE:float = 10.0	# Extra gap kept between boxes and the enemy
 const SPAWN_ATTEMPTS = 20			# Random positions tried before skipping a spawn
 
 var is_active: bool = true
+var ammo_spawn_timer: Timer
 
 signal on_game_start
 signal on_game_end(reason: String)
@@ -46,16 +49,15 @@ func _ready() -> void:
 	boss.on_death.connect(_on_boss_death)
 	play_again_button.pressed.connect(start_game)
 	main_menu_button.pressed.connect(on_main_menu)
-	var timer = Timer.new()
-	timer.wait_time = SPAWN_INTERVAL
-	timer.autostart = true
-	timer.timeout.connect(_spawn_ammo_box)
-	add_child(timer)
+	ammo_spawn_timer = Timer.new()
+	ammo_spawn_timer.wait_time = SPAWN_INTERVAL
+	ammo_spawn_timer.autostart = true
+	ammo_spawn_timer.timeout.connect(_spawn_ammo_box)
+	add_child(ammo_spawn_timer)
 
 func _spawn_ammo_box() -> void:
 	if !is_active or get_tree().get_nodes_in_group("ammo_box").size() >= MAX_BOXES:
 		return
-	var size = get_viewport().get_visible_rect().size
 	var shape = RectangleShape2D.new()
 	shape.size = Vector2.ONE * (BOX_SIZE + ENEMY_CLEARANCE * 2.0)
 	var query = PhysicsShapeQueryParameters2D.new()
@@ -65,8 +67,8 @@ func _spawn_ammo_box() -> void:
 	var space = get_viewport().world_2d.direct_space_state
 	for attempt in SPAWN_ATTEMPTS:
 		var pos = Vector2(
-			randf_range(SPAWN_MARGIN, size.x - SPAWN_MARGIN),
-			randf_range(SPAWN_MARGIN, size.y - SPAWN_MARGIN))
+			randf_range(SPAWN_RANGE_MIN.x, SPAWN_RANGE_MAX.x),
+			randf_range(SPAWN_RANGE_MIN.y, SPAWN_RANGE_MAX.y))
 		query.transform = Transform2D(0.0, pos)
 		var blocked = false
 		for hit in space.intersect_shape(query):
@@ -112,9 +114,16 @@ func on_main_menu() -> void:
 
 func start_game() -> void:
 	result_canvas.visible = false
+	_clear_run_objects()
 	is_active = true
+	ammo_spawn_timer.start(SPAWN_INTERVAL)
 	# TODO: START MUSIC
 	on_game_start.emit()
+
+func _clear_run_objects() -> void:
+	for group in ["ammo_box", "bullet", "wave", "shell"]:
+		for node in get_tree().get_nodes_in_group(group):
+			node.queue_free()
 
 func _on_player_death() -> void:
 	# Display death screen

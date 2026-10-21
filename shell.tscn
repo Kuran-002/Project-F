@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_shell"]
 radius = 4.0
 
-[node name="Shell" type="Area2D"]
+[node name="Shell" type="Area2D" groups=["shell"]]
 z_index = -1
 script = ExtResource("1_shell")
 

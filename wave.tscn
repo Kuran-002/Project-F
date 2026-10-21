@@ -28,7 +28,7 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Wave" type="Area2D"]
+[node name="Wave" type="Area2D" groups=["wave"]]
 script = ExtResource("1_sj2kr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

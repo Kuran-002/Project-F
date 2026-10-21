@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://odlb6t7odq8q"]
+[gd_scene load_steps=12 format=3 uid="uid://odlb6t7odq8q"]
 
 [ext_resource type="Script" uid="uid://bhcfhmgxymt5o" path="res://levels/game/main_game.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://chbcbiqrmd0bp" path="res://player.tscn" id="1_ig7tw"]
@@ -6,8 +6,21 @@
 [ext_resource type="Theme" uid="uid://csnkrwkh8euos" path="res://ASSET/theme/vaporwave_sunset.tres" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dehuo1g77qo64" path="res://ammo_box.tscn" id="4_box"]
 [ext_resource type="FontFile" uid="uid://cpmpva46rmy0l" path="res://ASSET/font/GravityRegular5.ttf" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://dcse4se570b46" path="res://ASSET/Map.png" id="6_map"]
 
-[node name="Main" type="Node" unique_id=39981920 node_paths=PackedStringArray("result_canvas", "result_screen", "title_label", "subtitle_label", "play_again_button", "main_menu_button")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top_wall"]
+size = Vector2(640, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bottom_wall"]
+size = Vector2(640, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_side_wall"]
+size = Vector2(16, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_side_wall_right"]
+size = Vector2(16, 360)
+
+[node name="Main" type="Node" node_paths=PackedStringArray("result_canvas", "result_screen", "title_label", "subtitle_label", "play_again_button", "main_menu_button")]
 script = ExtResource("1_h2yge")
 result_canvas = NodePath("GameOverCanvas")
 result_screen = NodePath("GameOverCanvas/ResultScreen")
@@ -17,55 +30,67 @@ play_again_button = NodePath("GameOverCanvas/ResultScreen/VBoxContainer/PlayAgai
 main_menu_button = NodePath("GameOverCanvas/ResultScreen/VBoxContainer/MainMenu")
 ammo_box_scene = ExtResource("4_box")
 
-[node name="Player" parent="." unique_id=1038732279 instance=ExtResource("1_ig7tw")]
+[node name="Map" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(320, 180)
+texture = ExtResource("6_map")
 
-[node name="Enemy" parent="." unique_id=306834386 instance=ExtResource("2_enemy")]
+[node name="ArenaWalls" type="StaticBody2D" parent="."]
+
+[node name="TopWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(320, 8)
+shape = SubResource("RectangleShape2D_top_wall")
+
+[node name="BottomWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(320, 352)
+shape = SubResource("RectangleShape2D_bottom_wall")
+
+[node name="LeftWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(8, 180)
+shape = SubResource("RectangleShape2D_side_wall")
+
+[node name="RightWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(632, 180)
+shape = SubResource("RectangleShape2D_side_wall_right")
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+
+[node name="Enemy" parent="." instance=ExtResource("2_enemy")]
 position = Vector2(330, 64)
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1915133533]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="PlayerHealth" type="ProgressBar" parent="HUD" unique_id=1362587336]
+[node name="PlayerHealth" type="ProgressBar" parent="HUD"]
 custom_minimum_size = Vector2(160, 16)
-offset_left = 16.0
-offset_top = 22.0
-offset_right = 176.0
-offset_bottom = 38.0
+offset_left = 446.00003
+offset_top = 34.000004
+offset_right = 606.0
+offset_bottom = 50.000004
 scale = Vector2(0.9, 0.9)
 theme = ExtResource("4_1bvp3")
 value = 100.0
 show_percentage = false
 
-[node name="AmmoLabel" type="Label" parent="HUD" unique_id=799315570]
+[node name="AmmoLabel" type="Label" parent="HUD"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -80.0
-offset_top = -50.0
-offset_right = -16.0
-offset_bottom = -27.0
+offset_left = -124.0
+offset_top = -308.0
+offset_right = -60.0
+offset_bottom = -285.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "2 / 2"
 horizontal_alignment = 2
 
-[node name="EnemyHealth" type="ProgressBar" parent="HUD" unique_id=657045251]
-custom_minimum_size = Vector2(520, 20)
-offset_left = 63.0
-offset_top = 316.0
-offset_right = 583.0
-offset_bottom = 336.0
-scale = Vector2(0.9, 0.9)
-theme = ExtResource("4_1bvp3")
-max_value = 500.0
-value = 500.0
-show_percentage = false
-
-[node name="GameOverCanvas" type="CanvasLayer" parent="." unique_id=615472613]
+[node name="GameOverCanvas" type="CanvasLayer" parent="."]
+layer = 10
 visible = false
 
-[node name="ResultScreen" type="ColorRect" parent="GameOverCanvas" unique_id=464546255]
+[node name="ResultScreen" type="ColorRect" parent="GameOverCanvas"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -73,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.4045111, 0.40451115, 0.4045111, 1)
 
-[node name="TitleLabel" type="RichTextLabel" parent="GameOverCanvas/ResultScreen" unique_id=2023361045]
+[node name="TitleLabel" type="RichTextLabel" parent="GameOverCanvas/ResultScreen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,7 +107,6 @@ offset_top = -140.0
 offset_bottom = -140.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_fonts/normal_font = ExtResource("5_lquwl")
 bbcode_enabled = true
 text = "[font_size=48][center]Game Over![/center][/font_size]"
@@ -91,7 +115,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SubtitleLabel" type="RichTextLabel" parent="GameOverCanvas/ResultScreen" unique_id=450616159]
+[node name="SubtitleLabel" type="RichTextLabel" parent="GameOverCanvas/ResultScreen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,7 +131,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverCanvas/ResultScreen" unique_id=700844724]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverCanvas/ResultScreen"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -120,15 +144,14 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
 
-[node name="PlayAgain" type="Button" parent="GameOverCanvas/ResultScreen/VBoxContainer" unique_id=101233547]
+[node name="PlayAgain" type="Button" parent="GameOverCanvas/ResultScreen/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_1bvp3")
 theme_override_fonts/font = ExtResource("5_lquwl")
 text = "Play Again"
 
-[node name="MainMenu" type="Button" parent="GameOverCanvas/ResultScreen/VBoxContainer" unique_id=281950450]
+[node name="MainMenu" type="Button" parent="GameOverCanvas/ResultScreen/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_1bvp3")
 theme_override_fonts/font = ExtResource("5_lquwl")
