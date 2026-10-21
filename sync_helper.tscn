@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ben2wpggcfb7e"]
+[gd_scene load_steps=0 format=3 uid="uid://ben2wpggcfb7e"]
 
 [ext_resource type="Script" uid="uid://dos3qhffr4v0a" path="res://rhythm_notifier-6a45663809d9d6e8bfeaad0000fd19344d2dfbfe/addons/rhythm_notifier/rhythm_notifier.gd" id="1_mdir1"]
 [ext_resource type="Script" uid="uid://dwdo17fpopjbf" path="res://sync_helper.gd" id="1_yfjx5"]

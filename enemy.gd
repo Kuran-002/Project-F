@@ -5,6 +5,12 @@ var health:int = MAX_HEALTH
 @onready var health_bar: ProgressBar = $"../HUD/EnemyHealth"
 @export var Wave: PackedScene
 @onready var Music:AudioStreamPlayer = $Music
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+const ATTACK_FRONT: Texture2D = preload("res://ASSET/DiscoEnemy-AtkFront.png")
+const ATTACK_LEFT: Texture2D = preload("res://ASSET/DiscoEnemy-AtkLeft.png")
+const ATTACK_RIGHT: Texture2D = preload("res://ASSET/DiscoEnemy-AtkRight.png")
+const ATTACK_ANIMATION_SPEED: float = 18.0
 
 signal beat
 var hit_flash_tween: Tween
@@ -17,6 +23,8 @@ const BPM:float = 115.0
 const SEC_IN_MIN:float = 60.0
 
 var target:Node2D
+var facing_animation: StringName = &"front"
+var is_attacking: bool = false
 
 # Boss Attack Variables
 var rng = RandomNumberGenerator.new() 
@@ -126,6 +134,10 @@ func _ready() -> void:
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
 	main_game.on_game_start.connect(on_game_start)
+	_add_attack_animation(&"attack_front", ATTACK_FRONT, Vector2i(96, 96), 8)
+	_add_attack_animation(&"attack_left", ATTACK_LEFT, Vector2i(150, 150), 13)
+	_add_attack_animation(&"attack_right", ATTACK_RIGHT, Vector2i(150, 150), 13)
+	animated_sprite.animation_finished.connect(_on_animation_finished)
 	Music.play() 
 	if (DEBUG):
 		Music.seek((start_at / BPM) * SEC_IN_MIN)
@@ -157,9 +169,27 @@ func _process(_delta: float) -> void:
 	var to_target:Vector2 = target.global_position - global_position
 	# No back-facing sprite yet, so "front" is used whenever the player is above or below
 	if abs(to_target.x) > abs(to_target.y):
-		$AnimatedSprite2D.play("right" if to_target.x > 0.0 else "left")
+		facing_animation = &"right" if to_target.x > 0.0 else &"left"
 	else:
-		$AnimatedSprite2D.play("front")
+		facing_animation = &"front"
+	if !is_attacking:
+		animated_sprite.play(facing_animation)
+
+func _add_attack_animation(animation_name: StringName, texture: Texture2D, frame_size: Vector2i, frame_count: int) -> void:
+	var sprite_frames: SpriteFrames = animated_sprite.sprite_frames
+	sprite_frames.add_animation(animation_name)
+	sprite_frames.set_animation_speed(animation_name, ATTACK_ANIMATION_SPEED)
+	sprite_frames.set_animation_loop(animation_name, false)
+	for frame_index in range(frame_count):
+		var frame := AtlasTexture.new()
+		frame.atlas = texture
+		frame.region = Rect2(frame_index * frame_size.x, 0, frame_size.x, frame_size.y)
+		sprite_frames.add_frame(animation_name, frame)
+
+func _on_animation_finished() -> void:
+	if is_attacking:
+		is_attacking = false
+		animated_sprite.play(facing_animation)
 
 func take_damage(amount:int) -> void:
 	if !main_game.is_active:
@@ -203,7 +233,9 @@ func random_attack(angle:float) -> void:
 	attack(offset) 
 		
 func attack(angle:float, is_offset:bool = true) -> void: 
-	# TODO: Add attack animation?
+	if !is_attacking:
+		is_attacking = true
+		animated_sprite.play(StringName("attack_" + String(facing_animation)))
 	var b = Wave.instantiate()
 	get_tree().current_scene.add_child(b) 
 	b.global_transform = $WeaponPivot.global_transform
@@ -218,6 +250,7 @@ func die() -> void:
 	
 func reset_enemy() -> void:
 	visible = true
+	is_attacking = false
 	health = MAX_HEALTH
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health

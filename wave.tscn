@@ -1,22 +1,46 @@
-[gd_scene format=3 uid="uid://b5mu858cv2dwl"]
+[gd_scene load_steps=7 format=3 uid="uid://b5mu858cv2dwl"]
 
-[ext_resource type="Texture2D" uid="uid://bvdbcgs5t1gcn" path="res://placeholders/laserRed01.png" id="1_8asc4"]
-[ext_resource type="Script" uid="uid://doeef1lerilrn" path="res://wave.gd" id="1_sj2kr"]
+[ext_resource type="Texture2D" uid="uid://ddnjffbysu45s" path="res://ASSET/Power_wave.png" id="1_power_wave"]
+[ext_resource type="Script" path="res://wave.gd" id="1_sj2kr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sj2kr"]
-size = Vector2(20, 39)
+[sub_resource type="CircleShape2D" id="CircleShape2D_sj2kr"]
+radius = 28.991379
 
-[node name="Wave" type="Area2D" unique_id=2116785329]
+[sub_resource type="AtlasTexture" id="AtlasTexture_power_wave_0"]
+atlas = ExtResource("1_power_wave")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_power_wave_1"]
+atlas = ExtResource("1_power_wave")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_power_wave"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_power_wave_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_power_wave_1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Wave" type="Area2D"]
 script = ExtResource("1_sj2kr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=237774258]
-position = Vector2(0, -9.5)
-shape = SubResource("RectangleShape2D_sj2kr")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 3.5)
+shape = SubResource("CircleShape2D_sj2kr")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1582184550]
-texture = ExtResource("1_8asc4")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.965, 0.965)
+sprite_frames = SubResource("SpriteFrames_power_wave")
+autoplay = "default"
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=334675656]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
