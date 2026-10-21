@@ -23,21 +23,49 @@ var rng = RandomNumberGenerator.new()
 var time:float = 0.0 
 var beat_count:int = 0 
 var action_count:int = 0
+# NOTE: timings are ahead by 1 BAR more than Audacity, but BEATs still
+# are timed correctly for some reason 
 var timings = [8, 9, 10, 11, 12, 
 				13, 14, 16, 17, 19,  
-				20]
+				20, 24, 25, 27, 29, 
+				31, 35, 36, 38, 39,
+				41, 42, 48, 49, 51,
+				52, 54, 55, 62, 63, 
+				64, 66, 67, 68, 70,
+				71, 72, 74, 75, 76,
+				77, 78, 79, 80, 82,
+				84, 85, 86, 87, 91,
+				92, 93, 95, 96, 97, 
+				100, 101, 102, 103, 104,
+				105, 106, 108, 109, 110,
+				111, 115, 116, 117, 118,
+				123, 124, 125, 127, 128,
+				129, 131, 132, 135, 136] # LAST: 123
 var actions = [1, 1, 1, 2, 2, 
 				1, 2, 1, 1, 2, 
-				2] 
+				2, 2, 1, 1, 1, 
+				1, 2, 2, 1, 1,
+				2, 1, 1, 1, 1,
+				2, 1, 1, 2, 2,
+				1, 2, 2, 1, 1,
+				1, 1, 3, 4, 3,
+				2, 1, 1, 1, 2, 
+				1, 1, 2, 1, 1,
+				1, 1, 1, 1, 1,
+				2, 2, 2, 2, 2,
+				2, 4, 1, 1, 1, 
+				2, 1, 1, 1, 2,
+				2, 2, 2, 2, 1, 
+				2, 1, 1, 1, 2] 
 var next_timing:int = timings[action_count] 
 var next_action:int = actions[action_count]
 
-const DEBUG:bool = true 
-var loop_at:int  = 40  # in beats
-var start_at:int = 20 
-var loop_action:int = 11 
+const DEBUG:bool = false 
+var start_at:int = 104 + 16
+var loop_at:int  = start_at + 16  # in beats
+var loop_action:int = 70  
 
-const OFFSET = 0.45
+const OFFSET = 0.50
 
 func beat_counter() -> void: 
 	time = Music.get_playback_position() + AudioServer.get_time_since_last_mix()
@@ -79,6 +107,9 @@ func _ready() -> void:
 	Music.play() 
 	if (DEBUG):
 		Music.seek((start_at / BPM) * SEC_IN_MIN)
+		action_count = loop_action
+		next_action = actions[action_count]
+		next_timing = timings[action_count]
 
 func _process(_delta: float) -> void:
 	if target == null or !is_instance_valid(target):
@@ -98,7 +129,8 @@ func _process(_delta: float) -> void:
 		Music.seek((start_at / BPM) * SEC_IN_MIN)
 		beat_count = start_at
 		action_count = loop_action 
-		next_timing = timings[start_at]
+		next_timing = timings[action_count]
+		next_action = actions[action_count] 
 
 	var to_target:Vector2 = target.global_position - global_position
 	# No back-facing sprite yet, so "front" is used whenever the player is above or below
