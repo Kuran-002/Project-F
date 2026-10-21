@@ -7,7 +7,6 @@ extends Panel
 @export var settings_button: Button
 @export var save_button: Button
 @export var close_button: Button
-@export var settings_panel: Panel
 
 @export var default_save_button_text: String = "Save"
 @export var default_save_text_color: Color = Color(1, 1, 1, 1)
@@ -30,7 +29,7 @@ func _ready() -> void:
 	sfx_volume_slider.value_changed.connect(_on_sfx_slider_changed)
 
 func _on_settings_opened() -> void:
-	settings_panel.visible = true
+	visible = true
 	
 var is_saving: bool = false
 	
@@ -50,7 +49,7 @@ func _save_settings() -> void:
 	is_saving = false
 	
 func _close_settings() -> void:
-	settings_panel.visible = false
+	visible = false
 
 func _on_master_slider_changed(value: float) -> void:
 	Settings.set_volume(Settings.MASTER_VOLUME_KEY, value)
