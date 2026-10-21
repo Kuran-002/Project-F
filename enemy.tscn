@@ -162,7 +162,7 @@ Wave = ExtResource("2_epg4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=25812316]
 sprite_frames = SubResource("SpriteFrames_enemy")
-animation = &"front"
+animation = &"right"
 autoplay = "front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1108495638]

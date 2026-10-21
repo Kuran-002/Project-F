@@ -23,18 +23,19 @@ var rng = RandomNumberGenerator.new()
 var time:float = 0.0 
 var beat_count:int = 0 
 var action_count:int = 0
-var timings = [8, 9, 10, 11,
-				12, 13, 14, 16, 
-				17, 19, 20]
-var actions = [1, 1, 1, 2,
-				2, 1, 2, 1, 
-				1, 2, 2] 
+var timings = [8, 9, 10, 11, 12, 
+				13, 14, 16, 17, 19,  
+				20]
+var actions = [1, 1, 1, 2, 2, 
+				1, 2, 1, 1, 2, 
+				2] 
 var next_timing:int = timings[action_count] 
 var next_action:int = actions[action_count]
 
-var loop_at:float  = 22  # in beats
-var start_at:float = 0
-var loop_action:int = 0
+const DEBUG:bool = false
+var loop_at:int  = 40  # in beats
+var start_at:int = 20 
+var loop_action:int = 11 
 
 const OFFSET = 0.45
 
@@ -76,7 +77,8 @@ func _ready() -> void:
 	health_bar.value = health
 	main_game.on_game_start.connect(on_game_start)
 	Music.play() 
-	Music.seek(start_at * SEC_IN_MIN * BPM)
+	if (DEBUG):
+		Music.seek((start_at / BPM) * SEC_IN_MIN)
 
 func _process(_delta: float) -> void:
 	if target == null or !is_instance_valid(target):
@@ -92,8 +94,8 @@ func _process(_delta: float) -> void:
 	beat_counter()
 
 	#Loop for debugging
-	if (beat_count > loop_at): 
-		Music.seek(start_at * SEC_IN_MIN * BPM)
+	if (beat_count > loop_at && DEBUG): 
+		Music.seek((start_at / BPM) * SEC_IN_MIN)
 		beat_count = start_at
 		action_count = loop_action 
 		next_timing = timings[start_at]
@@ -165,8 +167,16 @@ func reset_enemy() -> void:
 	health = MAX_HEALTH
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
+
+func reset_music() -> void: 
+	Music.play()
+	beat_count = 0
+	action_count = 0
+	next_timing = timings[action_count] 
+	next_action = actions[action_count]
 	
 func on_game_start() -> void:
 	reset_enemy()
+	reset_music() 
 	
 	
