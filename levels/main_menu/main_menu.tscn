@@ -5,6 +5,10 @@
 [ext_resource type="Script" uid="uid://bnlipj2op067h" path="res://settings/settings_menu.gd" id="2_u4e7g"]
 [ext_resource type="FontFile" uid="uid://cpmpva46rmy0l" path="res://ASSET/font/GravityRegular5.ttf" id="3_h370v"]
 [ext_resource type="FontFile" uid="uid://d3ma62rmgvab7" path="res://ASSET/font/GravityBold8.ttf" id="4_qhxwq"]
+[ext_resource type="Texture2D" uid="uid://cujqqwqjpgshf" path="res://ASSET/icon/mouse-left-click.png" id="6_qhxwq"]
+[ext_resource type="Script" uid="uid://pgjmatojih1v" path="res://levels/main_menu/how_to_play_panel.gd" id="6_vxpir"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h370v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lquwl"]
 
@@ -16,7 +20,17 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kek77"]
 
-[node name="MainMenuRoot" type="Control" unique_id=396763825 node_paths=PackedStringArray("play_button", "how_to_play_button", "credits_button", "close_credits_button", "credits_panel")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n50qa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1kt5n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qpssh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cq6kb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_npa2a"]
+
+[node name="MainMenuRoot" type="Control" unique_id=396763825 node_paths=PackedStringArray("play_button", "credits_button", "close_credits_button", "credits_panel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +40,6 @@ grow_vertical = 2
 theme = ExtResource("1_qbtdg")
 script = ExtResource("1_nt5r4")
 play_button = NodePath("TextureRect/MainMenuButtons/Playbutton")
-how_to_play_button = NodePath("TextureRect/MainMenuButtons/HowToPlayButton")
 credits_button = NodePath("TextureRect/CreditsButton")
 close_credits_button = NodePath("CreditsPanel/CloseCreditsButton")
 credits_panel = NodePath("CreditsPanel")
@@ -54,8 +67,9 @@ theme_override_fonts/normal_font = ExtResource("3_h370v")
 theme_override_fonts/bold_font = ExtResource("4_qhxwq")
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
-text = "
-[center][font_size=33]Disco Shootout[/font_size][/center]"
+text = "[center][font_size=33]Disco Shootout[/font_size][/center]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MainMenuButtons" type="VBoxContainer" parent="TextureRect" unique_id=954733434]
 custom_minimum_size = Vector2(67, 17)
@@ -117,7 +131,7 @@ anchor_bottom = 0.5
 offset_left = -125.0
 offset_top = -83.0
 offset_right = 125.0
-offset_bottom = 97.0
+offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
@@ -127,13 +141,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -5.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/line_separation = 3
 theme_override_fonts/normal_font = ExtResource("3_h370v")
 theme_override_fonts/bold_font = ExtResource("4_qhxwq")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_h370v")
 bbcode_enabled = true
-text = "
-[center][font_size=16]Credits[/font_size][/center]
+text = "[center][font_size=16]Credits[/font_size][/center]
 
 [center][font_size=13]kur4an[/font_size][/center]
 [center][font_size=13]laserdiamond[/font_size][/center]
@@ -141,26 +158,28 @@ text = "
 [center][font_size=13]y8ngy0[/font_size][/center]
 [center][font_size=13]wafoshii[/font_size][/center]
 [center][font_size=13]pinekota[/font_size][/center]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CloseCreditsButton" type="Button" parent="CreditsPanel" unique_id=824547606]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -90.0
-offset_top = -36.0
-offset_right = 4.0
-offset_bottom = -5.0
-grow_horizontal = 0
+offset_left = -47.0
+offset_top = -37.999985
+offset_right = 47.0
+offset_bottom = -6.9999847
+grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.675, 0.675)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("3_h370v")
 text = "Close"
 
-[node name="SettingsPanel" type="Panel" parent="." unique_id=895092480 node_paths=PackedStringArray("master_volume_slider", "music_volume_slider", "sfx_volume_slider", "settings_button", "save_button", "close_button", "settings_panel")]
+[node name="SettingsPanel" type="Panel" parent="." unique_id=895092480 node_paths=PackedStringArray("master_volume_slider", "music_volume_slider", "sfx_volume_slider", "settings_button", "save_button", "close_button")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -182,7 +201,6 @@ sfx_volume_slider = NodePath("VolumeSliders/SfxSlider")
 settings_button = NodePath("../TextureRect/MainMenuButtons/SettingsButton")
 save_button = NodePath("SaveButton")
 close_button = NodePath("CloseButton")
-settings_panel = NodePath(".")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SettingsPanel" unique_id=119098333]
 layout_mode = 0
@@ -196,6 +214,8 @@ bbcode_enabled = true
 text = "
 [center][font_size=16]Settings[/font_size][center]"
 fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VolumeLabel" type="RichTextLabel" parent="SettingsPanel" unique_id=279212786]
 layout_mode = 0
@@ -208,6 +228,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_7mycd")
 bbcode_enabled = true
 text = "[center][font_size=13]Volume[/font_size][/center]"
 fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VolumeSliders" type="VBoxContainer" parent="SettingsPanel" unique_id=1448826318]
 layout_mode = 1
@@ -267,6 +289,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_272bh")
 bbcode_enabled = true
 text = "[center][font_size=10]Master[/font_size][center]"
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MusicLabel" type="RichTextLabel" parent="SettingsPanel/VolumeLabels" unique_id=1471014009]
 custom_minimum_size = Vector2(0, 16)
@@ -276,6 +300,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_5vw27")
 bbcode_enabled = true
 text = "[center][font_size=10]Music[/font_size][center]"
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SfxLabel" type="RichTextLabel" parent="SettingsPanel/VolumeLabels" unique_id=1634979948]
 custom_minimum_size = Vector2(0, 16)
@@ -285,6 +311,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_kek77")
 bbcode_enabled = true
 text = "[center][font_size=10]SFX[/font_size][center]"
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SaveButton" type="Button" parent="SettingsPanel" unique_id=1079748192]
 layout_mode = 1
@@ -314,6 +342,306 @@ offset_left = 17.0
 offset_top = -28.0
 offset_right = 111.0
 offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.625, 0.625)
+theme_override_fonts/font = ExtResource("3_h370v")
+text = "Close"
+
+[node name="HowToPlayPanel" type="Panel" parent="." unique_id=1814455379 node_paths=PackedStringArray("open_button", "close_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -146.5
+offset_right = 225.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("6_vxpir")
+open_button = NodePath("../TextureRect/MainMenuButtons/HowToPlayButton")
+close_button = NodePath("CloseButton")
+
+[node name="Title" type="RichTextLabel" parent="HowToPlayPanel" unique_id=1179035613]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 12.0
+offset_right = 95.0
+offset_bottom = 37.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_n50qa")
+bbcode_enabled = true
+text = "[center]How to Play[/center]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlayPanel" unique_id=661819516]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -149.0
+offset_right = 200.0
+offset_bottom = 151.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.825, 0.825)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+alignment = 1
+
+[node name="Movement" type="Panel" parent="HowToPlayPanel/VBoxContainer" unique_id=1892192046]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 2
+
+[node name="MovementWASD" type="Panel" parent="HowToPlayPanel/VBoxContainer/Movement" unique_id=91796882]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 9.0
+offset_right = 170.0
+offset_bottom = 159.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1kt5n")
+
+[node name="W" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=520909358]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=25]W[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="A" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=214663531]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 25.0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=25]A[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="S" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=932763379]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=25]S[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementWASD" unique_id=1528713900]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -25.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=25]D[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MovementArrows" type="Panel" parent="HowToPlayPanel/VBoxContainer/Movement" unique_id=1996465289]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 9.0
+offset_right = 265.0
+offset_bottom = 159.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1kt5n")
+
+[node name="Up" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=616045073]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=35]↑[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Left" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=201677599]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 25.0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=35]←[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=1834387967]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=35]↓[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement/MovementArrows" unique_id=1052351405]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -25.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "[font_size=35]→[font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Movement" unique_id=305680751]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 20.0
+offset_right = 363.0
+offset_bottom = 60.0
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qpssh")
+bbcode_enabled = true
+text = "Move"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dodge" type="Panel" parent="HowToPlayPanel/VBoxContainer" unique_id=419365197]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 2
+
+[node name="DodgeKey" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Dodge" unique_id=998213038]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 191.0
+offset_bottom = 56.0
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+bbcode_enabled = true
+text = "Space"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Dodge" unique_id=920159510]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 20.0
+offset_right = 363.0
+offset_bottom = 60.0
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cq6kb")
+text = "Dodge"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Attack" type="Panel" parent="HowToPlayPanel/VBoxContainer" unique_id=1298076413]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlayPanel/VBoxContainer/Attack" unique_id=127000711]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 20.0
+offset_right = 363.0
+offset_bottom = 60.0
+theme_override_fonts/normal_font = ExtResource("3_h370v")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_npa2a")
+text = "Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MouseLeftClickIcon" type="TextureRect" parent="HowToPlayPanel/VBoxContainer/Attack" unique_id=1408073518]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -718.0
+offset_top = -634.0
+offset_right = 522.0
+offset_bottom = 634.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.065, 0.065)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("6_qhxwq")
+
+[node name="CloseButton" type="Button" parent="HowToPlayPanel" unique_id=533858404]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -31.0
+offset_right = 64.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.625, 0.625)

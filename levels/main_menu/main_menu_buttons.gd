@@ -3,7 +3,6 @@ extends Control
 const GAME_SCENE = "res://main.tscn"
 
 @export var play_button: Button
-@export var how_to_play_button: Button
 @export var credits_button: Button
 @export var close_credits_button: Button
 
@@ -13,8 +12,6 @@ const GAME_SCENE = "res://main.tscn"
 func _ready() -> void:
 	if play_button:
 		play_button.pressed.connect(_on_play)
-	if how_to_play_button:
-		how_to_play_button.pressed.connect(_on_how_to_play)
 	if credits_button:
 		credits_button.pressed.connect(_on_credits)
 	if close_credits_button:

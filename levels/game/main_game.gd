@@ -18,6 +18,7 @@ const LOSE_COLOR: Color = Color(1.0, 0.0, 0.0, 0.169)
 @onready var player = $"Player"
 @onready var boss = $"Enemy"
 
+@export var result_canvas: CanvasLayer
 @export var result_screen: ColorRect
 @export var title_label: RichTextLabel
 @export var subtitle_label: RichTextLabel
@@ -70,7 +71,7 @@ func on_main_menu() -> void:
 	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
 
 func start_game() -> void:
-	result_screen.visible = false
+	result_canvas.visible = false
 	is_active = true
 	# TODO: START MUSIC
 	on_game_start.emit()
@@ -78,7 +79,7 @@ func start_game() -> void:
 func _on_player_death() -> void:
 	# Display death screen
 	print("Player Defeated")
-	result_screen.visible = true
+	result_canvas.visible = true
 	result_screen.color = LOSE_COLOR
 	title_label.text = PLAYER_LOSE_TITLE
 	subtitle_label.text = PLAYER_DEATH_MESSAGE
@@ -89,7 +90,7 @@ func _on_player_death() -> void:
 func _on_boss_death() -> void:
 	# Display victory screen
 	print("Boss Defeated")
-	result_screen.visible = true
+	result_canvas.visible = true
 	result_screen.color = VICTORY_COLOR
 	title_label.text = PLAYER_WIN_TITLE
 	subtitle_label.text = PLAYER_WIN_MESSAGE
