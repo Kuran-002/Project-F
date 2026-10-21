@@ -82,7 +82,7 @@ func _process(delta: float) -> void:
 
 	#Aim gun towards mouse 
 	var mouse_direction = weapon_pivot.global_position.direction_to(get_global_mouse_position())
-	$Shotgun.global_position = weapon_pivot.global_position + mouse_direction * GUN_OFFSET
+	gun.global_position = weapon_pivot.global_position + mouse_direction * GUN_OFFSET
 	gun.scale.y = 1 if mouse_direction.x > 0 else -1 
 	gun.look_at(get_global_mouse_position())
 

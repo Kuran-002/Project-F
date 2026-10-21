@@ -115,7 +115,7 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1065750960]
 sprite_frames = SubResource("SpriteFrames_knsld")
-animation = &"reload"
+animation = &"shoot"
 autoplay = "shoot"
 metadata/_edit_group_ = true
 
