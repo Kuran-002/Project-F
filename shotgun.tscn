@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bhahq6mu8fe54"]
+[gd_scene format=3 uid="uid://bhahq6mu8fe54"]
 
 [ext_resource type="Script" uid="uid://dwsoaouijhohu" path="res://shotgun.gd" id="1_hn68x"]
 [ext_resource type="PackedScene" uid="uid://ca0r41jqirdjm" path="res://bullet.tscn" id="2_5bb75"]
@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://djhidfy5aati6" path="res://ASSET/Shotgun_reload.png" id="5_6cxpq"]
 [ext_resource type="Texture2D" uid="uid://hbt5k1flsk8t" path="res://ASSET/Shotfin_shoot.png" id="5_gda1h"]
 [ext_resource type="PackedScene" uid="uid://cfyui6i156pjo" path="res://shell.tscn" id="6_shell"]
-[ext_resource type="AudioStream" uid="uid://pnxdx7qtnc5l" path="res://Audio/Shotgun_shoot.mp3" id="7_shoot"]
-[ext_resource type="AudioStream" uid="uid://cck4ny4yvnmn0" path="res://Audio/Shotgun_reload.mp3" id="8_reload"]
+[ext_resource type="AudioStream" uid="uid://pnxdx7qtnc5l" path="res://AUDIO/Shotgun_shoot.mp3" id="7_shoot"]
+[ext_resource type="AudioStream" uid="uid://cck4ny4yvnmn0" path="res://AUDIO/Shotgun_reload.mp3" id="8_reload"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvfgu"]
 atlas = ExtResource("3_gda1h")
@@ -59,7 +59,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qvfgu")
 }],
-"loop": false,
+"loop": 0,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -88,7 +88,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p4u3q")
 }],
-"loop": true,
+"loop": 1,
 "name": &"reload",
 "speed": 5.0
 }, {
@@ -99,7 +99,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1o1ri")
 }],
-"loop": false,
+"loop": 0,
 "name": &"shoot",
 "speed": 16.0
 }]
@@ -107,29 +107,30 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vv13y"]
 size = Vector2(29, 10)
 
-[node name="Shotgun" type="Area2D"]
+[node name="Shotgun" type="Area2D" unique_id=1007642528]
 script = ExtResource("1_hn68x")
 Bullet = ExtResource("2_5bb75")
 Shell = ExtResource("6_shell")
 metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1065750960]
 sprite_frames = SubResource("SpriteFrames_knsld")
 animation = &"reload"
 autoplay = "shoot"
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=929280431]
 position = Vector2(-5.5, 1)
 shape = SubResource("RectangleShape2D_vv13y")
 disabled = true
 metadata/_edit_group_ = true
 
-[node name="Muzzle" type="Marker2D" parent="."]
+[node name="Muzzle" type="Marker2D" parent="." unique_id=2060777256]
 position = Vector2(10, -1)
 
-[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+[node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=843555221]
 stream = ExtResource("7_shoot")
+volume_db = -7.5
 
-[node name="ReloadSound" type="AudioStreamPlayer" parent="."]
+[node name="ReloadSound" type="AudioStreamPlayer" parent="." unique_id=1528763875]
 stream = ExtResource("8_reload")
