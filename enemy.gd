@@ -32,7 +32,7 @@ var actions = [1, 1, 1, 2, 2,
 var next_timing:int = timings[action_count] 
 var next_action:int = actions[action_count]
 
-const DEBUG:bool = false
+const DEBUG:bool = true 
 var loop_at:int  = 40  # in beats
 var start_at:int = 20 
 var loop_action:int = 11 
