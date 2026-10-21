@@ -23,15 +23,20 @@ var rng = RandomNumberGenerator.new()
 var time:float = 0.0 
 var beat_count:int = 0 
 var action_count:int = 0
-var timings = [0,1, 2, 5, 6]
+var timings = [8, 9, 10, 11,
+				12, 13, 14, 16, 
+				17, 19, 20]
+var actions = [1, 1, 1, 2,
+				2, 1, 2, 1, 
+				1, 2, 2] 
 var next_timing:int = timings[action_count] 
-#var actions = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+var next_action:int = actions[action_count]
 
 func start() -> void: 
 	Music.play() 
 	Music.seek(start_at * SEC_IN_MIN * BPM)
 
-var loop_at:float  = 7  # in beats
+var loop_at:float  = 100000  # in beats
 var start_at:float = 0
 var loop_action:int = 0
 
@@ -48,16 +53,18 @@ func beat_counter() -> void:
 		beat.emit() 
 
 func _on_beat() -> void: 
-	#var next_action = actions[action_count] 
-	if (beat_count >= next_timing): 
-		if (action_count < timings.size()): 
-			action_count += 1 
-			if (action_count < timings.size()): 
-				next_timing = timings[action_count]
-			handle_action(1)
+	if (beat_count == next_timing): 
+		handle_action(next_action)
+		action_count += 1
+		if (action_count < actions.size()):
+			next_action = actions[action_count]
+			next_timing = timings[action_count]
+
 	
 func handle_action(action:int) -> void: 
 	match action: 
+		0: 
+			pass
 		1: 
 			random_attack(PI/8)	
 		2: 
