@@ -13,9 +13,10 @@ const DIRECTIONS:Array[Array] = [
 const MOVE_SPEED:float = 150.0		# Move speed of player (px/s) 
 const DODGE_SPEED:float = 300 		# Speed mult by dodge 
 
-var screen_size:Vector2				# Bounds for player movement 
-
 const MAX_HEALTH:int = 500
+const START_POSITION:Vector2 = Vector2(320, 270)
+const ARENA_MIN:Vector2 = Vector2(32, 40)
+const ARENA_MAX:Vector2 = Vector2(608, 328)
 const GUN_OFFSET = 10
 
 var health:int = MAX_HEALTH			# Player health
@@ -62,8 +63,7 @@ func _on_dodge_interval_timeout() -> void:
 
 func _ready() -> void: 
 	add_to_group("player")
-	screen_size = get_viewport_rect().size 
-	start(Vector2(320, 270)) # DO NOT TOUCH 
+	start(START_POSITION) # DO NOT TOUCH
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
 	$CollisionShape2D.disabled = false 
@@ -82,7 +82,7 @@ func _process(delta: float) -> void:
 
 	#Aim gun towards mouse 
 	var mouse_direction = weapon_pivot.global_position.direction_to(get_global_mouse_position())
-	$Shotgun.global_position = weapon_pivot.global_position + mouse_direction * GUN_OFFSET
+	gun.global_position = weapon_pivot.global_position + mouse_direction * GUN_OFFSET
 	gun.scale.y = 1 if mouse_direction.x > 0 else -1 
 	gun.look_at(get_global_mouse_position())
 
@@ -149,7 +149,7 @@ func _process(delta: float) -> void:
 
 	# check player bounds 
 	position += velocity * delta 
-	position = position.clamp(Vector2.ZERO, screen_size) 
+	position = position.clamp(ARENA_MIN, ARENA_MAX)
 	
 func _on_ammo_changed(current: int, reserve: int, reloading: bool) -> void:
 	if reloading:
@@ -178,12 +178,20 @@ func die() ->void:
 	on_death.emit()
 	
 func reset_player() -> void:
+	$DodgeTimer.stop()
+	$DodgeInterval.stop()
 	visible = true
+	position = START_POSITION
 	health = MAX_HEALTH
 	health_bar.max_value = MAX_HEALTH
 	health_bar.value = health
 	can_dodge = true
 	is_dodging = false
+	velocity = Vector2.ZERO
+	$CollisionShape2D.disabled = false
+	$AnimatedSprite2D.speed_scale = 1.0
+	$AnimatedSprite2D.play("idle_down")
+	gun.reset_to_start()
 	
 func on_game_start() -> void:
 	reset_player()

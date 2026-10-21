@@ -5,10 +5,12 @@ extends Area2D
 @onready var main_game: Node = get_parent().get_parent()
 
 signal ammo_changed(current: int, reserve: int, reloading: bool)
-const MAX_AMMO = 2				# Shells the gun holds
-const RELOAD_TIME:float = 1.5	# Seconds a reload takes
-const START_RESERVE = 6			# Spare shells at the start
-var curr_ammo = MAX_AMMO		# Shells currently loaded
+const MAX_AMMO = 2					# Shells the gun holds
+const RELOAD_TIME:float = 1.5		# Seconds a reload takes
+const START_RESERVE = 6				# Spare shells at the start
+const RECOIL_OFFSET_Y:float = -0.5	# Adjust X and Y position of sprite when firing
+const RECOIL_OFFSET_X:float = 7.5 
+var curr_ammo = MAX_AMMO			# Shells currently loaded
 var reserve_ammo = START_RESERVE	# Spare shells; reloading draws from here
 var reload_timer:Timer
 
@@ -26,6 +28,7 @@ func _ready() -> void:
 func _on_animated_sprite_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "shoot":
 		$AnimatedSprite2D.play("idle")
+		$AnimatedSprite2D.offset = Vector2(0, 0)
 
 func add_reserve_ammo(amount: int) -> void:
 	reserve_ammo += amount
@@ -46,6 +49,7 @@ func shoot() -> void:
 		get_tree().current_scene.add_child(b) 
 		b.global_transform = $Muzzle.global_transform 
 		b.global_rotation_degrees += (i - 1) * 3
+	$AnimatedSprite2D.offset = Vector2(RECOIL_OFFSET_X, RECOIL_OFFSET_Y)
 	$AnimatedSprite2D.play("shoot")
 	$ShootSound.play()
 	
@@ -70,6 +74,16 @@ func _on_reload_finished() -> void:
 	var moved = min(MAX_AMMO - curr_ammo, reserve_ammo)
 	curr_ammo += moved
 	reserve_ammo -= moved
+	emit_ammo()
+
+func reset_to_start() -> void:
+	reload_timer.stop()
+	$ShootSound.stop()
+	$ReloadSound.stop()
+	$AnimatedSprite2D.offset = Vector2.ZERO
+	$AnimatedSprite2D.play("idle")
+	curr_ammo = MAX_AMMO
+	reserve_ammo = START_RESERVE
 	emit_ammo()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
