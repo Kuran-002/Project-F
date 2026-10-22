@@ -51,11 +51,13 @@ func shoot() -> void:
 		b.global_rotation_degrees += (i - 1) * 3
 	$AnimatedSprite2D.offset = Vector2(RECOIL_OFFSET_X, RECOIL_OFFSET_Y)
 	$AnimatedSprite2D.play("shoot")
+	$ShootSound.bus = Settings.SFX_VOLUME_KEY
 	$ShootSound.play()
 	
 func reload() -> void:
 	eject_shells(MAX_AMMO - curr_ammo)
 	$AnimatedSprite2D.play("reload")
+	$ReloadSound.bus = Settings.SFX_VOLUME_KEY
 	$ReloadSound.play()
 	reload_timer.start()
 	emit_ammo()

@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cck4ny4yvnmn0"
-path="res://.godot/imported/Shotgun_reload.mp3-ecdaf437cc9843a68fbb8756c62daf34.mp3str"
+path="res://.godot/imported/Shotgun_reload.mp3-58fc7108f2fec86758c324435408e41f.mp3str"
 
 [deps]
 
-source_file="res://AUDIO/Shotgun_reload.mp3"
-dest_files=["res://.godot/imported/Shotgun_reload.mp3-ecdaf437cc9843a68fbb8756c62daf34.mp3str"]
+source_file="res://Audio/Shotgun_reload.mp3"
+dest_files=["res://.godot/imported/Shotgun_reload.mp3-58fc7108f2fec86758c324435408e41f.mp3str"]
 
 [params]
 

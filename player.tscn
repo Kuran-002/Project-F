@@ -14,8 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://cdkph0nkatqjm" path="res://ASSET/player_LeftIdle.png" id="12_left_idle"]
 [ext_resource type="Texture2D" uid="uid://cvk6dxxqoe51w" path="res://ASSET/player_RightIdle.png" id="13_right_idle"]
 [ext_resource type="Texture2D" uid="uid://bft6hrq1qm0cd" path="res://ASSET/player_UpIdle.png" id="14_up_idle"]
+[ext_resource type="AudioStream" uid="uid://gsvpdfrf4hmh" path="res://Audio/hee-hee.mp3" id="17_op7ga"]
 [ext_resource type="PackedScene" uid="uid://bhahq6mu8fe54" path="res://shotgun.tscn" id="18_q13i1"]
-[ext_resource type="AudioStream" uid="uid://5a407f6brx" path="res://AUDIO/ammo_pickup.mp3" id="19_ammo_pickup"]
+[ext_resource type="AudioStream" uid="uid://5a407f6brx" path="res://Audio/ammo_pickup.mp3" id="19_ammo_pickup"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
 atlas = ExtResource("2_606se")
@@ -1334,6 +1335,11 @@ position = Vector2(16, 3)
 
 [node name="AmmoPickupSound" type="AudioStreamPlayer" parent="." unique_id=1171504449]
 stream = ExtResource("19_ammo_pickup")
+bus = &"SFX"
+
+[node name="HeeHee" type="AudioStreamPlayer" parent="." unique_id=730398795]
+stream = ExtResource("17_op7ga")
+bus = &"SFX"
 
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="timeout" from="DodgeInterval" to="." method="_on_dodge_interval_timeout"]

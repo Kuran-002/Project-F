@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://djhidfy5aati6" path="res://ASSET/Shotgun_reload.png" id="5_6cxpq"]
 [ext_resource type="Texture2D" uid="uid://hbt5k1flsk8t" path="res://ASSET/Shotfin_shoot.png" id="5_gda1h"]
 [ext_resource type="PackedScene" uid="uid://cfyui6i156pjo" path="res://shell.tscn" id="6_shell"]
-[ext_resource type="AudioStream" uid="uid://pnxdx7qtnc5l" path="res://AUDIO/Shotgun_shoot.mp3" id="7_shoot"]
-[ext_resource type="AudioStream" uid="uid://cck4ny4yvnmn0" path="res://AUDIO/Shotgun_reload.mp3" id="8_reload"]
+[ext_resource type="AudioStream" uid="uid://pnxdx7qtnc5l" path="res://Audio/Shotgun_shoot.mp3" id="7_shoot"]
+[ext_resource type="AudioStream" uid="uid://cck4ny4yvnmn0" path="res://Audio/Shotgun_reload.mp3" id="8_reload"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvfgu"]
 atlas = ExtResource("3_gda1h")
@@ -131,6 +131,8 @@ position = Vector2(10, -1)
 [node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=843555221]
 stream = ExtResource("7_shoot")
 volume_db = -7.5
+bus = &"SFX"
 
 [node name="ReloadSound" type="AudioStreamPlayer" parent="." unique_id=1528763875]
 stream = ExtResource("8_reload")
+bus = &"SFX"

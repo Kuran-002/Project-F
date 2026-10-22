@@ -28,6 +28,7 @@ var can_dodge:bool = true 			# Whether player can dodge
 var is_dodging:bool = false 		# Whether the player is dodging 
 var velocity:Vector2 = Vector2.ZERO # Velocity vector of player 
 @onready var ammo_label: Label = $"../HUD/AmmoLabel"
+@onready var hurt_sound: AudioStreamPlayer = $HeeHee
 
 func is_moving_backwards(aim_direction:Vector2) -> bool:
 	return velocity.length_squared() > 0.0 and velocity.normalized().dot(aim_direction) < 0.0
@@ -168,6 +169,7 @@ func take_damage(amount:int) -> void:
 	var old_health = health
 	health = clamp(health - amount, 0, MAX_HEALTH)
 	health_bar.value = health
+	hurt_sound.play()
 	on_damage.emit(amount, health, old_health)
 	if health <= 0:
 		die()

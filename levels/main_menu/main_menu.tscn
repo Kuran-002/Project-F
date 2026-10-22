@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bfvh41cp0wkrd" path="res://levels/main_menu/main_menu_buttons.gd" id="1_nt5r4"]
 [ext_resource type="Theme" uid="uid://csnkrwkh8euos" path="res://ASSET/theme/vaporwave_sunset.tres" id="1_qbtdg"]
 [ext_resource type="Script" uid="uid://bnlipj2op067h" path="res://settings/settings_menu.gd" id="2_u4e7g"]
+[ext_resource type="Texture2D" uid="uid://dkoghlntt1nmd" path="res://ASSET/theme/splash-art.png" id="3_dedsy"]
 [ext_resource type="FontFile" uid="uid://cpmpva46rmy0l" path="res://ASSET/font/GravityRegular5.ttf" id="3_h370v"]
 [ext_resource type="FontFile" uid="uid://d3ma62rmgvab7" path="res://ASSET/font/GravityBold8.ttf" id="4_qhxwq"]
 [ext_resource type="Texture2D" uid="uid://cujqqwqjpgshf" path="res://ASSET/icon/mouse-left-click.png" id="6_qhxwq"]
@@ -44,6 +45,21 @@ credits_button = NodePath("TextureRect/CreditsButton")
 close_credits_button = NodePath("CreditsPanel/CloseCreditsButton")
 credits_panel = NodePath("CreditsPanel")
 
+[node name="SplashArt" type="TextureRect" parent="." unique_id=1068908598]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -220.0
+offset_right = 380.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.46, 0.46)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_dedsy")
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=292119647]
 layout_mode = 1
 anchors_preset = 15
@@ -62,7 +78,8 @@ offset_top = 20.0
 offset_right = 320.0
 offset_bottom = 70.0
 grow_horizontal = 2
-pivot_offset = Vector2(320, 25)
+scale = Vector2(0.85, 0.85)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_fonts/normal_font = ExtResource("3_h370v")
 theme_override_fonts/bold_font = ExtResource("4_qhxwq")
 theme_override_font_sizes/normal_font_size = 10
@@ -85,7 +102,8 @@ offset_right = 83.0
 offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(320, 0)
+scale = Vector2(0.815, 0.815)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_constants/separation = 8
 alignment = 1
 
@@ -115,6 +133,7 @@ offset_left = 560.0
 offset_top = 317.0
 offset_right = 632.0
 offset_bottom = 350.0
+scale = Vector2(0.84, 0.84)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("3_h370v")
 theme_override_font_sizes/font_size = 8

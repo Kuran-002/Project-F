@@ -138,6 +138,7 @@ func _ready() -> void:
 	_add_attack_animation(&"attack_left", ATTACK_LEFT, Vector2i(150, 150), 13)
 	_add_attack_animation(&"attack_right", ATTACK_RIGHT, Vector2i(150, 150), 13)
 	animated_sprite.animation_finished.connect(_on_animation_finished)
+	Music.bus = Settings.MUSIC_VOLUME_KEY
 	Music.play() 
 	if (DEBUG):
 		Music.seek((start_at / BPM) * SEC_IN_MIN)
@@ -256,6 +257,7 @@ func reset_enemy() -> void:
 	health_bar.value = health
 
 func reset_music() -> void: 
+	Music.bus = Settings.MUSIC_VOLUME_KEY
 	Music.play()
 	beat_count = 0
 	action_count = 0
