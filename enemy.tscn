@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dbky5w5x3oy57" path="res://ASSET/DiscoEnemy_front.png" id="2_front"]
 [ext_resource type="Texture2D" uid="uid://f4gryh6jio3m" path="res://ASSET/DiscoEnemy_Left.png" id="3_left"]
 [ext_resource type="Script" uid="uid://dos3qhffr4v0a" path="res://rhythm_notifier-6a45663809d9d6e8bfeaad0000fd19344d2dfbfe/addons/rhythm_notifier/rhythm_notifier.gd" id="3_qi2p4"]
-[ext_resource type="AudioStream" uid="uid://b2trfrpm100y6" path="res://AUDIO/13 - Bad.mp3" id="4_iifgy"]
+[ext_resource type="AudioStream" uid="uid://b2trfrpm100y6" path="res://Audio/13 - Bad.mp3" id="4_iifgy"]
 [ext_resource type="Texture2D" uid="uid://blgmk0hybthcj" path="res://ASSET/DiscoEnemy_Right.png" id="4_right"]
 [ext_resource type="Theme" uid="uid://csnkrwkh8euos" path="res://ASSET/theme/vaporwave_sunset.tres" id="5_health_theme"]
 
@@ -170,11 +170,11 @@ autoplay = "front"
 shape = SubResource("CapsuleShape2D_enemy")
 
 [node name="EnemyHealth" type="ProgressBar" parent="." unique_id=657045251]
+z_index = 1
 offset_left = -24.0
 offset_top = 48.0
 offset_right = 24.0
 offset_bottom = 53.0
-z_index = 1
 theme = ExtResource("5_health_theme")
 max_value = 500.0
 show_percentage = false
@@ -188,6 +188,7 @@ metadata/_custom_type_script = "uid://dos3qhffr4v0a"
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1272127455]
 stream = ExtResource("4_iifgy")
+bus = &"Music"
 
 [node name="WeaponPivot" type="Marker2D" parent="." unique_id=214316117]
 position = Vector2(0, 30)
