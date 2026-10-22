@@ -119,7 +119,7 @@ func _on_beat() -> void:
 func handle_action(action:int) -> void: 
 	match action: 
 		0: 
-			pass
+			return 
 		1: 
 			random_attack(PI/8)	
 		2: 
