@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://5a407f6brx"
-path="res://.godot/imported/ammo_pickup.mp3-01ada11c0224cfa3b5e98c7357ff2a3d.mp3str"
+path="res://.godot/imported/ammo_pickup.mp3-cdd9e7d4b0010bdad2ee5acb9ef11ef2.mp3str"
 
 [deps]
 
-source_file="res://AUDIO/ammo_pickup.mp3"
-dest_files=["res://.godot/imported/ammo_pickup.mp3-01ada11c0224cfa3b5e98c7357ff2a3d.mp3str"]
+source_file="res://Audio/ammo_pickup.mp3"
+dest_files=["res://.godot/imported/ammo_pickup.mp3-cdd9e7d4b0010bdad2ee5acb9ef11ef2.mp3str"]
 
 [params]
 
